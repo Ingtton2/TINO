@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="너가 게으르다는 건 아니지만 보통 어때?" />
+    <Button
+        android:background="@drawable/btn_rounded"
+        android:id="@+id/fast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingHorizontal="50dp"
+        android:text="나는 부지런해 (+3분)"/>
+    <Button
+        android:background="@drawable/btn_rounded"
+        android:id="@+id/mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingHorizontal="50dp"
+        android:text="나는 보통이야 (+5분)"/>
+    <Button
+        android:background="@drawable/btn_rounded"
+        android:id="@+id/slow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingHorizontal="50dp"
+        android:text="나는 좀 느려  (+8분)"/>
+
+</LinearLayout>
