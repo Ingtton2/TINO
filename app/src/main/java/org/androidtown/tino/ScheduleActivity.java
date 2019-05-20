@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class ScheduleActivity extends Activity {
 
     private MyArrayAdapter mAdapter;
     private ListView mListView;
@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 
         mListView = (ListView) findViewById(R.id.listView);
 
-        mAdapter = new MyArrayAdapter(this, R.layout.set_schedule);
+        mAdapter = new MyArrayAdapter(this, R.layout.activity_schedule);
 
         mAdapter.add("씻기");
         mAdapter.add("화장");
