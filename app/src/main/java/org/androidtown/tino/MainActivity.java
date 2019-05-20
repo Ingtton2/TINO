@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
     private String mDragString;
     private int mPosition = -1;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
