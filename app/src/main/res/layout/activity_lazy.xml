@@ -1,38 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <LinearLayout
+    android:gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="너가 게으르다는 건 아니지만 보통 어때?" />
+        android:layout_width="wrap_content"
+        android:text="너가 게으르다는 건 아니지만 보통 어때?"
+        android:layout_margin="10dp"/>
+
     <Button
-        android:background="@drawable/btn_rounded"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="나는 부지런해 (+3분)"
+        android:layout_margin="10dp"
+        android:paddingHorizontal="50dp"
         android:id="@+id/fast"
-        android:layout_width="wrap_content"
+        android:background="@drawable/btn_rounded"/>
+
+    <Button
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="나는 보통이야 (+5분)"
         android:layout_margin="10dp"
         android:paddingHorizontal="50dp"
-        android:text="나는 부지런해 (+3분)"/>
-    <Button
-        android:background="@drawable/btn_rounded"
         android:id="@+id/mid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingHorizontal="50dp"
-        android:text="나는 보통이야 (+5분)"/>
+        android:background="@drawable/btn_rounded"/>
+
     <Button
-        android:background="@drawable/btn_rounded"
-        android:id="@+id/slow"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="나는 좀 느려 (+8분)"
         android:layout_margin="10dp"
         android:paddingHorizontal="50dp"
-        android:text="나는 좀 느려  (+8분)"/>
+        android:id="@+id/slow"
+        android:background="@drawable/btn_rounded"/>
 
 </LinearLayout>
