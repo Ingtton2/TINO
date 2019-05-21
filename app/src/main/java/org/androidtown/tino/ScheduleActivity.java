@@ -2,6 +2,7 @@ package org.androidtown.tino;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,9 +10,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.androidtown.tino.AlarmsetActivity;
 
 import java.util.ArrayList;
 
@@ -22,6 +26,7 @@ public class ScheduleActivity extends Activity {
     private boolean mSortable = false;
     private String mDragString;
     private int mPosition = -1;
+    Button setbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class ScheduleActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mListView = (ListView) findViewById(R.id.listView);
+        setbtn=findViewById(R.id.complete);
 
         mAdapter = new MyArrayAdapter(this, R.layout.activity_schedule);
 
@@ -40,6 +46,16 @@ public class ScheduleActivity extends Activity {
         mAdapter.add("옷고르기");
         mAdapter.add("고데기");
         mAdapter.add("모닝똥");
+        //화면 바꾸기 알람 테스트
+        setbtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         mListView.setAdapter(mAdapter);
@@ -79,6 +95,7 @@ public class ScheduleActivity extends Activity {
                 return false;
             }
         });
+
     }
 
     public void startDrag(String string) {

@@ -67,6 +67,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="확인"
+        android:id="@+id/complete"
         android:background="@drawable/btn_rounded"/>
 
 </LinearLayout>
