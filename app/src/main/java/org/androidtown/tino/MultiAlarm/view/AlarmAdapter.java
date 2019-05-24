@@ -56,9 +56,7 @@ public class AlarmAdapter extends RecyclerView.Adapter {
         if (holder instanceof TimeViewHolder) {
             TimeViewHolder timeViewHolder = (TimeViewHolder) holder;
             timeViewHolder.bindView(mAlarms.get(position));
-
         }
-
     }
 
 
@@ -214,6 +212,14 @@ public class AlarmAdapter extends RecyclerView.Adapter {
         //TODO: Xử lý logic xóa alarm khỏi adapter
         try {
             mAlarms.remove(position);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void reset() {
+        //TODO: alarms reset
+        try {
+            mAlarms.clear();
         } catch (Exception e) {
             e.printStackTrace();
         }

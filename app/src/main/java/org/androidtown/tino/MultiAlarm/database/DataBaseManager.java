@@ -134,7 +134,6 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
     }
 
-
     // TODO: get all Alarm from database and return arrayList alarm
     public ArrayList<Alarm> getAlarmList() {
         // getting read data

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.CallBack {
@@ -44,6 +42,8 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         setContentView(R.layout.activity_alarmset);
         ButterKnife.bind(this);
         initView();
+        AddAlarm(14,1,"test");
+        AddAlarm(14,2,"shower");
     }
 
     // TODO: this initialize view for activity
@@ -62,11 +62,11 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         recyclerView.setAdapter(alarmAdapter);
     }
 
-    @OnClick(R.id.openAdd)
-    public void onOpenAddAlarm(View view) {
-        //TODO: processing when user click on "+" button start new intent with request code
+    public void AddAlarm(int h,int m,String t){
         Intent intent = new Intent(getApplicationContext(), AddAlarmActivity.class);
-        intent.putExtra("screenType", "add");
+        intent.putExtra("Hour",h);
+        intent.putExtra("Min",m);
+        intent.putExtra("Task",t);
         startActivityForResult(intent, Constants.REQUEST_ADD);
     }
 
@@ -293,5 +293,12 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         PendingIntent alarmIntent = PendingIntent.getBroadcast(AlarmsetActivity.this, alarmId, intent, 0);
         // cancel this pendingIntent
         alarmManager.cancel(alarmIntent);
+    }
+
+    @Override
+    protected void onStart() {
+        //reset all alarms
+        super.onStart();
+        alarmAdapter.reset();
     }
 }

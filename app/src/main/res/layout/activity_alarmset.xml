@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="org.androidtown.tino.MultiAlarm.activity.AlarmsetActivity">
+    tools:context="org.androidtown.tino.AlarmsetActivity">
 
     <Toolbar
         android:id="@+id/toolbar"

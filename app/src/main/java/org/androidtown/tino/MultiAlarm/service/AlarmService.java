@@ -1,11 +1,14 @@
 package org.androidtown.tino.MultiAlarm.service;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.app.*;
 
 import org.androidtown.tino.MultiAlarm.receiver.AlarmReceiver;
 import org.androidtown.tino.MultiAlarm.ultil.Constants;
@@ -30,6 +33,7 @@ public class AlarmService extends Service {
                 // create mediaPlayer object
                 mediaPlayer = MediaPlayer.create(this, uri);
                 mediaPlayer.start();
+
                 break;
             case Constants.OFF_INTENT:
                 // this check if user pressed cancel

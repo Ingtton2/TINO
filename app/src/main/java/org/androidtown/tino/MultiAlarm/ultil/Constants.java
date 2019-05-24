@@ -9,7 +9,7 @@ public class Constants {
     // this use for setResult when user click back button "<"
     public static final int RESULT_CANCEL = 2;
     // this use for alarm trigger time
-    public static final String ADD_INTENT = "com.example.leanh.util.Constant.ADD_INTENT";
+    public static final String ADD_INTENT = "org.androidtown.tino.MultiAlarm.util.Constant.ADD_INTENT";
     // / this use for cancel alarm time
-    public static final String OFF_INTENT = "com.example.leanh.util.Constant.OFF_INTENT";
+    public static final String OFF_INTENT = "org.androidtown.tino.MultiAlarm.util.Constant.OFF_INTENT";
 }
