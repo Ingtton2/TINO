@@ -20,7 +20,6 @@ public class StartActivity extends AppCompatActivity {
 
         btnCreate.setOnClickListener(new View.OnClickListener(){
             @Override
-
             public void onClick(View v){
                 Intent intent = new Intent(StartActivity.this, ScheduleActivity.class);
                 startActivity(intent);

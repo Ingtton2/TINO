@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScheduleActivity" />
+        <activity android:name=".MainActivity"/>
         <activity android:name=".AlarmsetActivity"></activity>
         <activity android:name=".AddAlarmActivity"></activity>
 
