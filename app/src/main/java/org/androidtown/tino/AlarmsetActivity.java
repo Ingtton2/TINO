@@ -319,11 +319,14 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
     // 모든 Data 읽어서 알람 설정
     public void selectAll(int hour, int min) {
 
-        ScheduleActivity.DBHelper helper=new ScheduleActivity.DBHelper(this,"tino.db",null,2);
-        SQLiteDatabase db=helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select name, time from tino where time>=1",null);
+        SQLiteDatabase db;
+        String sql;
+        TinoDB helper =new TinoDB(this);
+        db = helper.getReadableDatabase();
+        sql = "Select * from tino where time>=1;";
+        Cursor cursor = db.rawQuery(sql, null);
         int count = cursor.getCount();
-        Log.d("sls", "count: " +count);
+        Log.d("test", "count: " +count);
         int r_h = hour;
         int r_m = min;
         int re_time[];
@@ -343,9 +346,8 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
                 }
             }
         } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+            db.close();
+            cursor.close();
         }
 
     }
