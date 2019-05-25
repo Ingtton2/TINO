@@ -135,7 +135,6 @@ public class ScheduleActivity extends Activity {
         dbHelper.close();
     }
 
-
     public static void insert_db(SQLiteDatabase db){
         db = dbHelper.getWritableDatabase();
         db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", shower, showertime));
@@ -148,7 +147,6 @@ public class ScheduleActivity extends Activity {
         db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", poo, pootime));
         count++;
     }
-
 
     static class DBHelper extends SQLiteOpenHelper {
 
@@ -177,5 +175,4 @@ public class ScheduleActivity extends Activity {
         }
 
     }
-
 }
