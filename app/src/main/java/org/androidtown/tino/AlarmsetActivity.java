@@ -3,12 +3,14 @@ package org.androidtown.tino;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
 import org.androidtown.tino.MultiAlarm.database.DataBaseManager;
@@ -26,9 +28,6 @@ import butterknife.ButterKnife;
 
 public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.CallBack {
 
-
-    @BindView(R.id.openAdd)
-    Button button;
     @BindView(R.id.alarmView)
     RecyclerView recyclerView;
     // this to manage data base
@@ -36,14 +35,14 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
     // this to manage Alarm adapter like ArrayList
     private AlarmAdapter alarmAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmset);
         ButterKnife.bind(this);
         initView();
-        AddAlarm(14,1,"test");
-        AddAlarm(14,2,"shower");
+        selectAll(15,30);
     }
 
     // TODO: this initialize view for activity
@@ -301,4 +300,55 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         super.onStart();
         alarmAdapter.reset();
     }
+
+    public int[] compute_time(int hour,int min, int time){
+        int[] result_time={0,0};
+
+        if(min>=time){
+            result_time[0]=hour;
+            result_time[1]=min-time;
+        }
+        else{
+            result_time[0]=hour-1;
+            result_time[1]=min+60-time;
+        }
+
+        return result_time;
+    }
+
+    // 모든 Data 읽어서 알람 설정
+    public void selectAll(int hour, int min) {
+
+        ScheduleActivity.DBHelper helper=new ScheduleActivity.DBHelper(this,"tino.db",null,2);
+        SQLiteDatabase db=helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select name, time from tino where time>=1",null);
+        int count = cursor.getCount();
+        Log.d("sls", "count: " +count);
+        int r_h = hour;
+        int r_m = min;
+        int re_time[];
+
+        try {
+            if (cursor != null) {
+                for (int i = 0; i < count; i++) {
+                    cursor.moveToNext();
+                    String task = cursor.getString(cursor.getColumnIndex("name"));
+                    int time = cursor.getInt(cursor.getColumnIndex("time"));
+                    re_time=compute_time(r_h,r_m,time);
+                    r_h=re_time[0];
+                    r_m=re_time[1];
+                    AddAlarm(r_h,r_m,task);
+
+                    Log.d("sls", "name: " + task + ", time: " + time);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+    }
+
+
 }
