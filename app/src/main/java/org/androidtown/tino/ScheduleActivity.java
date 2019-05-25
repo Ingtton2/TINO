@@ -1,16 +1,13 @@
 package org.androidtown.tino;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
@@ -22,8 +19,10 @@ public class ScheduleActivity extends Activity {
 
     // db information
     final static String TAG = "SQLite";
-    final static int dbVersion = 3;
-    static DBHelper dbHelper;
+    //final static String dbName = "tino.db";
+    final static int dbVersion = 2;
+    //static DBHelper dbHelper, dbHelper2;
+    TinoDB helper;
 
     // name column에 들어갈 string
     final static String shower = "shower", makeup = "makeup", pack = "pack", dry = "dry";
@@ -50,8 +49,10 @@ public class ScheduleActivity extends Activity {
 
         inputHour = findViewById(R.id.inputHour);
         inputMinute = findViewById(R.id.inputMinute);
+        helper = new TinoDB(this);
 
-        dbHelper = new DBHelper(this, "tino.db", null, dbVersion);
+       // dbHelper = new DBHelper(this, "tino.db", null, dbVersion);
+        //dbHelper2 = new DBHelper(this, "timetogo.db", null, dbVersion);
     }
 
     public void mOnClick(View v) {
@@ -62,8 +63,18 @@ public class ScheduleActivity extends Activity {
 
         switch (v.getId()) {
             case R.id.ok:
-                //Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                helper.delete();
+                helper.insert(0, "shower", "0");
+                helper.insert(1, "makeup", "0");
+                helper.insert(2, "pack", "0");
+                helper.insert(3, "dry", "0");
+                helper.insert(4, "eat", "0");
+                helper.insert(5, "clothes", "0");
+                helper.insert(6, "styling", "0");
+                helper.insert(7, "poo", "0");
+
+                Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
+               // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
@@ -76,10 +87,8 @@ public class ScheduleActivity extends Activity {
                 stylingtime = editStyling.getText().toString();
                 pootime = editPoo.getText().toString();
 
-                hour = inputHour.getText().toString();
-                minute = inputMinute.getText().toString();
-
-                db = dbHelper.getWritableDatabase();
+                //hour = inputHour.getText().toString();
+                //minute = inputMinute.getText().toString();
 
                 if (showertime.equals(""))
                     showertime = "0";
@@ -97,85 +106,41 @@ public class ScheduleActivity extends Activity {
                     stylingtime = "0";
                 if (pootime.equals(""))
                     pootime = "0";
-                if (hour.equals(""))
-                    hour = "0";
-                if (minute.equals(""))
-                    minute = "0";
 
-                insert_tino(db);
+                helper.update(shower, showertime);
+                helper.update( makeup, makeuptime);
+                helper.update( pack, packtime);
+                helper.update( dry, drytime);
+                helper.update( eat, eattime);
+                helper.update( clothes, clothestime);
+                helper.update( styling, stylingtime);
+                helper.update( poo, pootime);
 
-                db = dbHelper.getReadableDatabase();
 
-                sql = "SELECT * FROM tino;";
 
-                Cursor cursor = db.rawQuery(sql, null);
+                // db = dbHelper.getWritableDatabase();
+                //db2 = dbHelper2.getWritableDatabase();
+
+                db=helper.getReadableDatabase();
+                Cursor cursor = db.rawQuery("Select name, time from tino ;", null);
+                //Cursor cursor2 = db2.rawQuery(sql2, null);
+                int count = cursor.getCount();
+                Log.d(TAG, "count" + count);
 
                 if (cursor.getCount() > 0) {
                     while (cursor.moveToNext())
-                        Log.d(TAG, String.format("\nname = %s, time = %s", cursor.getString(0), cursor.getString(1)));
+                        Log.d("tesssssst", String.format("\n**name = %s, time = %s", cursor.getString(0), cursor.getString(1)));
                 } else {
                     Log.d(TAG, "not exists");
                 }
+                cursor.close();
 
-                sql2 = "SELECT * FROM timetogo";
-                Cursor cursor2 = db.rawQuery(sql2, null);
-
-                if (cursor2.getCount() > 0) {
-                    Log.d(TAG, "SQL2 SUCCESS");
-                    while (cursor.moveToNext())
-                        Log.d(TAG, String.format("\nhour = %s, minute = %s", cursor2.getString(0), cursor2.getString(1)));
-                } else {
-                    Log.d(TAG, "not exists");
-                }
-                cursor2.close();
                 break;
 
             case R.id.delete: //전체삭제 버튼(delete)
-                db = dbHelper.getWritableDatabase();
-                sql = "DELETE FROM tino;";
-                db.execSQL(sql);
-                //Log.d(TAG, "delete");
+                helper.delete();
                 break;
         }
-        dbHelper.close();
     }
 
-    public static void insert_tino(SQLiteDatabase db) {
-        //writable 없어도되겠지?
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", shower, showertime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", makeup, makeuptime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", pack, packtime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", dry, drytime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", eat, eattime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", clothes, clothestime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", styling, stylingtime));
-        db.execSQL(String.format("INSERT or REPLACE INTO tino VALUES('%s', '%s');", poo, pootime));
-
-        db.execSQL(String.format("INSERT or REPLACE INTO timetogo VALUES('%s', '%s');", hour, minute));
-        count++;
-    }
-
-    static class DBHelper extends SQLiteOpenHelper {
-
-        //생성자 - database 파일을 생성한다.
-        public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-            super(context, name, factory, version);
-        }
-
-        //DB 처음 만들때 호출. - 테이블 생성 등의 초기 처리.
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE IF NOT EXISTS tino (name TEXT, time TEXT);");
-            db.execSQL("CREATE TABLE IF NOT EXISTS timetogo (hour TEXT, minute TEXT);");
-        }
-
-        //DB 업그레이드 필요 시 호출. (version값에 따라 반응)
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS tino");
-            db.execSQL("DROP TABLE IF EXISTS timetogo");
-            onCreate(db);
-        }
-
-    }
 }
