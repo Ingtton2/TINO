@@ -51,6 +51,28 @@ public class ScheduleActivity extends Activity {
         inputMinute = findViewById(R.id.inputMinute);
         helper = new TinoDB(this);
 
+        editShower = findViewById(R.id.editShower);
+        editMakeup = findViewById(R.id.editMakeup);
+        editPack = findViewById(R.id.editPack);
+        editDry = findViewById(R.id.editDry);
+        editEat = findViewById(R.id.editEat);
+        editClothes = findViewById(R.id.editClothes);
+        editStyling = findViewById(R.id.editStyling);
+        editPoo = findViewById(R.id.editPoo);
+        //hint 저장된거 보이게 하고 싶은뎁 잘 안되서 ㅠㅠ
+//        int num=helper.check();
+//        if(num==8){
+//            editShower.setText(helper.hint("shower"));
+//            editMakeup .setText(helper.hint("makeup"));
+//            editPack.setText(helper.hint("pack"));
+//            editDry .setText(helper.hint("dry"));
+//            editEat .setText(helper.hint("eat"));
+//            editClothes .setText(helper.hint("clothes"));
+//            editStyling .setText(helper.hint("styling"));
+//            editPoo .setText(helper.hint("poo"));
+//        }
+
+
        // dbHelper = new DBHelper(this, "tino.db", null, dbVersion);
         //dbHelper2 = new DBHelper(this, "timetogo.db", null, dbVersion);
     }
@@ -63,15 +85,20 @@ public class ScheduleActivity extends Activity {
 
         switch (v.getId()) {
             case R.id.ok:
-                helper.delete();
-                helper.insert(0, "shower", "0");
-                helper.insert(1, "makeup", "0");
-                helper.insert(2, "pack", "0");
-                helper.insert(3, "dry", "0");
-                helper.insert(4, "eat", "0");
-                helper.insert(5, "clothes", "0");
-                helper.insert(6, "styling", "0");
-                helper.insert(7, "poo", "0");
+
+                //tino row가 하나도 없는 초기 상황이면 모두 0으로 입력값 insert
+                if(helper.check()==0){
+                    Log.d("test","input");
+                    helper.insert(0, "shower", "0");
+                    helper.insert(1, "makeup", "0");
+                    helper.insert(2, "pack", "0");
+                    helper.insert(3, "dry", "0");
+                    helper.insert(4, "eat", "0");
+                    helper.insert(5, "clothes", "0");
+                    helper.insert(6, "styling", "0");
+                    helper.insert(7, "poo", "0");
+                }
+
 
                 Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
                // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -90,31 +117,23 @@ public class ScheduleActivity extends Activity {
                 //hour = inputHour.getText().toString();
                 //minute = inputMinute.getText().toString();
 
-                if (showertime.equals(""))
-                    showertime = "0";
-                if (makeuptime.equals(""))
-                    makeuptime = "0";
-                if (packtime.equals(""))
-                    packtime = "0";
-                if (drytime.equals(""))
-                    drytime = "0";
-                if (eattime.equals(""))
-                    eattime = "0";
-                if (clothestime.equals(""))
-                    clothestime = "0";
-                if (stylingtime.equals(""))
-                    stylingtime = "0";
-                if (pootime.equals(""))
-                    pootime = "0";
-
-                helper.update(shower, showertime);
-                helper.update( makeup, makeuptime);
-                helper.update( pack, packtime);
-                helper.update( dry, drytime);
-                helper.update( eat, eattime);
-                helper.update( clothes, clothestime);
-                helper.update( styling, stylingtime);
-                helper.update( poo, pootime);
+                //다시 입력한 값만 업데이트
+                if (!showertime.equals(""))
+                    helper.update(shower, showertime);
+                if (!makeuptime.equals(""))
+                    helper.update( makeup, makeuptime);
+                if (!packtime.equals(""))
+                    helper.update( pack, packtime);
+                if (!drytime.equals(""))
+                    helper.update( dry, drytime);
+                if (!eattime.equals(""))
+                    helper.update( eat, eattime);
+                if (!clothestime.equals(""))
+                    helper.update( clothes, clothestime);
+                if (!stylingtime.equals(""))
+                    helper.update( styling, stylingtime);
+                if (!pootime.equals(""))
+                    helper.update( poo, pootime);
 
 
 
