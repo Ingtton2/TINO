@@ -2,8 +2,10 @@ package org.androidtown.tino;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class TinoDB extends SQLiteOpenHelper {
     // DATAbase constants
@@ -59,5 +61,21 @@ public class TinoDB extends SQLiteOpenHelper {
     public void delete(){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM tino;");
+    }
+    public int check(){
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = "Select * from tino;";
+        Cursor cursor = db.rawQuery(sql, null);
+        int num = cursor.getCount();
+        return num;
+
+    }
+    public String hint(String task){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select time from tino where name ="+task+";", null);
+        String hint = cursor.getString(cursor.getColumnIndex("time"));
+        Log.d("time","check:"+hint);
+
+        return hint;
     }
 }
