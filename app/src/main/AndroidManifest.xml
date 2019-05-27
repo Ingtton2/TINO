@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.androidtown.tino">
+
     <!-- You need the wake lock so the phone can be activated -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- You need the permission to set the alarm -->
     <uses-permission android:name="your.package.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -28,9 +31,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScheduleActivity" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".AlarmsetActivity"></activity>
-        <activity android:name=".AddAlarmActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AlarmsetActivity" />
+        <activity android:name=".AddAlarmActivity" />
 
         <receiver
             android:name=".MultiAlarm.receiver.AlarmReceiver"
@@ -41,6 +44,8 @@
             android:name=".MultiAlarm.service.AlarmService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".WeatherActivity"></activity>
     </application>
 
 </manifest>

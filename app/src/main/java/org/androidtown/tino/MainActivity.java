@@ -7,15 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    private TextView testText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
                                 //testText.setText("Home");
                                 break;
                             case R.id.action_schedule:
-                                replaceFragment(MainFragment.newInstance());
+                                //replaceFragment(ScheduleFragment.newInstance());
                                 break;
                             case R.id.action_check:
                                 //testText.setText("Check");
                                 break;
                             case R.id.action_more:
+                                replaceFragment(WeatherFragment.newInstance());
                                 //testText.setText("More");
                                 break;
                         }
