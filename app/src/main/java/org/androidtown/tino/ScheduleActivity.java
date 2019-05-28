@@ -62,14 +62,28 @@ public class ScheduleActivity extends Activity {
         //hint 저장된거 보이게 하고 싶은뎁 잘 안되서 ㅠㅠ
 //        int num=helper.check();
 //        if(num==8){
-//            editShower.setText(helper.hint("shower"));
-//            editMakeup .setText(helper.hint("makeup"));
-//            editPack.setText(helper.hint("pack"));
-//            editDry .setText(helper.hint("dry"));
-//            editEat .setText(helper.hint("eat"));
-//            editClothes .setText(helper.hint("clothes"));
-//            editStyling .setText(helper.hint("styling"));
-//            editPoo .setText(helper.hint("poo"));
+//            String[] hint=hint();
+//            Log.d("hint","2ok?");
+//            editShower.setHint(hint[0]);
+//            editMakeup.setHint(hint[1]);
+//            editPack.setHint(hint[1]);
+//            editDry.setHint(hint[2]);
+//            editEat.setHint(hint[4]);
+//            editClothes.setHint(hint[5]);
+//            editStyling.setHint(hint[6]);
+//            editPoo.setHint(hint[7]);
+//        }
+//        else{
+//            Log.d("hint","1ok?");
+//            editShower.setHint("00");
+//            editMakeup.setHint("00");
+//            editPack.setHint("00");
+//            editDry.setHint("00");
+//            editEat.setHint("00");
+//            editClothes.setHint("00");
+//            editStyling.setHint("00");
+//            editPoo.setHint("00");
+//
 //        }
 
 
@@ -160,6 +174,24 @@ public class ScheduleActivity extends Activity {
                 helper.delete();
                 break;
         }
+    }
+    public String[] hint(){
+        String[] time = new String[0];
+        int i=0;
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from tino ;", null);
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()){
+                time[i] = cursor.getString(cursor.getColumnIndex("name"));
+                i++;
+            }
+        } else {
+            Log.d(TAG, "not exists");
+        }
+        cursor.close();
+
+        return time;
+
     }
 
 }

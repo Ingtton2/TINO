@@ -72,7 +72,9 @@ public class TinoDB extends SQLiteOpenHelper {
     }
     public String hint(String task){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select time from tino where name ="+task+";", null);
+        Cursor cursor = db.rawQuery("Select time from tino where name = "+task+";", null);
+        int cu=cursor.getCount();
+        Log.d("time","check:"+cu);
         String hint = cursor.getString(cursor.getColumnIndex("time"));
         Log.d("time","check:"+hint);
 
