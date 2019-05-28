@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.androidtown.tino">
-
     <!-- You need the wake lock so the phone can be activated -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- You need the permission to set the alarm -->
     <uses-permission android:name="your.package.alarm.permission.SET_ALARM" />
@@ -15,21 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+        <activity android:name=".AddScheduleActivity"></activity>
+        <activity android:name=".BookmarkActivity" />
+        <activity android:name=".LazyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".LazyActivity">
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".BookmarkActivity" />
-
-        <activity android:name=".StartActivity"></activity>
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AlarmsetActivity" />
@@ -45,6 +45,7 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity android:name=".WeatherActivity" />
     </application>
 
 </manifest>
