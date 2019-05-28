@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                     gpsLocationListener);
         }
 
-        //Instantiate Class With Your ApiKey As The Parameter
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper("9d0ecaac6ad18c1a3b072f7c87ee845c");
 
         //Set Units
