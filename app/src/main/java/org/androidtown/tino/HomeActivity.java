@@ -10,17 +10,10 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ImageView weatherIcon;
-    TextView weatherText;
-    Button btn;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        weatherIcon = findViewById(R.id.weatherIcon);
-        weatherText = findViewById(R.id.weatherText);
-        btn = findViewById(R.id.btn);
     }
 
 }
