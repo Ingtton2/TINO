@@ -11,11 +11,6 @@
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
-    <style name = "MyTimePickerX"
-        parent="@android:style/Widget.Material.TimePicker">
-        <item name="android:colorControlActivated">@color/colorPrimary</item>
-        <item name="android:amPmTextColor">@color/colorPrimary</item>
-    </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>

@@ -2,37 +2,62 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="342dp"
+        android:layout_height="174dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/logo2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="너가 게으르다는 건 아니지만 보통 어때?" />
-    <Button
-        android:background="@drawable/btn_rounded"
-        android:id="@+id/fast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingHorizontal="50dp"
-        android:text="나는 부지런해 (+3분)"/>
-    <Button
-        android:background="@drawable/btn_rounded"
-        android:id="@+id/mid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingHorizontal="50dp"
-        android:text="나는 보통이야 (+5분)"/>
-    <Button
-        android:background="@drawable/btn_rounded"
-        android:id="@+id/slow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingHorizontal="50dp"
-        android:text="나는 좀 느려  (+8분)"/>
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="너가 게으르다는 건 아니지만 보통 어때?"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"/>
+
+        <Button
+            android:layout_gravity="center"
+            android:background="@drawable/btn_rounded"
+            android:id="@+id/fast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingHorizontal="50dp"
+            android:textSize="13dp"
+            android:text="나는 부지런해"/>
+        <Button
+            android:layout_gravity="center"
+            android:background="@drawable/btn_rounded"
+            android:id="@+id/mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingHorizontal="50dp"
+            android:textSize="13dp"
+            android:text="나는 보통이야"/>
+        <Button
+            android:layout_gravity="center"
+            android:background="@drawable/btn_rounded"
+            android:id="@+id/slow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingHorizontal="50dp"
+            android:textSize="13dp"
+            android:text=" 나는 좀 느려 "/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

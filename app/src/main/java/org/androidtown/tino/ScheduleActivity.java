@@ -135,8 +135,6 @@ public class ScheduleActivity extends Activity {
                 if (!pootime.equals(""))
                     helper.update( poo, pootime);
 
-
-
                 // db = dbHelper.getWritableDatabase();
                 //db2 = dbHelper2.getWritableDatabase();
 
@@ -154,10 +152,6 @@ public class ScheduleActivity extends Activity {
                 }
                 cursor.close();
 
-                break;
-
-            case R.id.delete: //전체삭제 버튼(delete)
-                helper.delete();
                 break;
         }
     }
