@@ -6,4 +6,12 @@
         <item name="android:textSize">30sp</item>
         <item name="android:titleTextColor">@color/colorAccent</item>
     </style>
+
+    <style name="MyTimePicker" parent="android:Widget.Material.Light.TimePicker">
+        <item name="android:timePickerMode">clock</item>
+        <item name="android:headerBackground">#AA8EE6</item>
+        <item name="android:numbersInnerTextColor">@color/colorPrimary</item>
+        <item name="android:numbersSelectorColor">#AA8EE6 </item>
+        <item name="android:amPmTextColor">@color/colorPrimary</item>
+    </style>
 </resources>
