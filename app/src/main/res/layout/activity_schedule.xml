@@ -353,16 +353,6 @@
                     android:text="확인"
                     android:onClick="mOnClick"/>
 
-                <Button
-                    android:id="@+id/delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ok"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_rounded"
-                    android:text="삭제"
-                    android:onClick="mOnClick"/>
-
         </LinearLayout>
 
 </LinearLayout>

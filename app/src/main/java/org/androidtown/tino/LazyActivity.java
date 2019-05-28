@@ -23,7 +23,7 @@ public class LazyActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v){
-                Intent intent = new Intent(LazyActivity.this, StartActivity.class);
+                Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -33,7 +33,7 @@ public class LazyActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v){
-                Intent intent = new Intent(LazyActivity.this, StartActivity.class);
+                Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -42,7 +42,7 @@ public class LazyActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v){
-                Intent intent = new Intent(LazyActivity.this, StartActivity.class);
+                Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
