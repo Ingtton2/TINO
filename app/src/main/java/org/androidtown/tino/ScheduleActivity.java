@@ -89,14 +89,14 @@ public class ScheduleActivity extends Activity {
                 //tino row가 하나도 없는 초기 상황이면 모두 0으로 입력값 insert
                 if(helper.check()==0){
                     Log.d("test","input");
-                    helper.insert(0, "shower", "0");
-                    helper.insert(1, "makeup", "0");
-                    helper.insert(2, "pack", "0");
-                    helper.insert(3, "dry", "0");
-                    helper.insert(4, "eat", "0");
-                    helper.insert(5, "clothes", "0");
-                    helper.insert(6, "styling", "0");
-                    helper.insert(7, "poo", "0");
+                    helper.insert(0, "shower", "0",0);
+                    helper.insert(1, "makeup", "0",0);
+                    helper.insert(2, "pack", "0",0);
+                    helper.insert(3, "dry", "0",0);
+                    helper.insert(4, "eat", "0",0);
+                    helper.insert(5, "clothes", "0",0);
+                    helper.insert(6, "styling", "0",0);
+                    helper.insert(7, "poo", "0",0);
                 }
 
 
