@@ -97,7 +97,6 @@
                         </TableRow>
 
                         <TableRow>
-
                                 <TextView
                                     android:id="@+id/textMakeup"
                                     android:layout_width="80dp"

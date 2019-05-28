@@ -114,8 +114,8 @@ public class ScheduleActivity extends Activity {
                 }
 
 
-                Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
-               // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 

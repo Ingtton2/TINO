@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ScheduleActivity"
+    android:id="@+id/container"
     android:weightSum="10">
 
     <Toolbar
@@ -23,21 +24,13 @@
 
     </Toolbar>
 
-    <LinearLayout
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="9">
-
-        <TextView
-            android:id="@+id/testText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="텍스트뷰 테스트"
-            android:layout_gravity="center"
-            android:layout_marginLeft="25dp"
-            android:textSize="50dp"/>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
