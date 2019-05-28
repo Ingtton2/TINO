@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
 
+    Switch switchShower,switchMakeup,switchPack,switchDry,switchEat,switchClothes,switchStyling,switchPoo;
     EditText editShower, editMakeup, editPack, editDry;
     EditText editEat, editClothes, editStyling, editPoo;
     EditText inputHour, inputMinute;
@@ -51,6 +53,16 @@ public class ScheduleActivity extends Activity {
         inputMinute = findViewById(R.id.inputMinute);
         helper = new TinoDB(this);
 
+        switchShower = (Switch)findViewById(R.id.switchShower);
+        switchMakeup = (Switch)findViewById(R.id.switchMakeup);
+        switchPack = (Switch)findViewById(R.id.switchPack);
+        switchDry = (Switch)findViewById(R.id.switchDry);
+        switchEat = (Switch)findViewById(R.id.switchEat);
+        switchClothes = (Switch)findViewById(R.id.switchClothes);
+        switchStyling = (Switch)findViewById(R.id.switchStyling);
+        switchPoo = (Switch)findViewById(R.id.switchPoo);
+
+
         editShower = findViewById(R.id.editShower);
         editMakeup = findViewById(R.id.editMakeup);
         editPack = findViewById(R.id.editPack);
@@ -59,7 +71,7 @@ public class ScheduleActivity extends Activity {
         editClothes = findViewById(R.id.editClothes);
         editStyling = findViewById(R.id.editStyling);
         editPoo = findViewById(R.id.editPoo);
-        //hint 저장된거 보이게 하고 싶은뎁 잘 안되서 ㅠㅠ
+//        //hint 저장된거 보이게 하고 싶은뎁 잘 안되서 ㅠㅠ
 //        int num=helper.check();
 //        if(num==8){
 //            String[] hint=hint();
@@ -72,17 +84,16 @@ public class ScheduleActivity extends Activity {
 //            editClothes.setHint(hint[5]);
 //            editStyling.setHint(hint[6]);
 //            editPoo.setHint(hint[7]);
-//        }
-//        else{
-//            Log.d("hint","1ok?");
-//            editShower.setHint("00");
-//            editMakeup.setHint("00");
-//            editPack.setHint("00");
-//            editDry.setHint("00");
-//            editEat.setHint("00");
-//            editClothes.setHint("00");
-//            editStyling.setHint("00");
-//            editPoo.setHint("00");
+//
+//            switchShower.setChecked(chkSwitch(shower));
+//            switchMakeup.setChecked(chkSwitch(makeup));
+//            switchPack.setChecked(chkSwitch(pack));
+//            switchDry.setChecked(chkSwitch(dry));
+//            switchEat.setChecked(chkSwitch(eat));
+//            switchClothes.setChecked(chkSwitch(clothes));
+//            switchStyling.setChecked(chkSwitch(styling));
+//            switchPoo.setChecked(chkSwitch(poo));
+//
 //
 //        }
 
@@ -103,19 +114,21 @@ public class ScheduleActivity extends Activity {
                 //tino row가 하나도 없는 초기 상황이면 모두 0으로 입력값 insert
                 if(helper.check()==0){
                     Log.d("test","input");
-                    helper.insert(0, "shower", "0");
-                    helper.insert(1, "makeup", "0");
-                    helper.insert(2, "pack", "0");
-                    helper.insert(3, "dry", "0");
-                    helper.insert(4, "eat", "0");
-                    helper.insert(5, "clothes", "0");
-                    helper.insert(6, "styling", "0");
-                    helper.insert(7, "poo", "0");
+                    helper.insert(0, "shower", "0",0);
+                    helper.insert(1, "makeup", "0",0);
+                    helper.insert(2, "pack", "0",0);
+                    helper.insert(3, "dry", "0",0);
+                    helper.insert(4, "eat", "0",0);
+                    helper.insert(5, "clothes", "0",0);
+                    helper.insert(6, "styling", "0",0);
+                    helper.insert(7, "poo", "0",0);
                 }
+                int num=helper.check();
+                Log.d("test330","count "+num);
 
 
-                //Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
@@ -149,20 +162,60 @@ public class ScheduleActivity extends Activity {
                 if (!pootime.equals(""))
                     helper.update( poo, pootime);
 
+                if(switchShower.isChecked())
+                    helper.update_do(shower,1);
+                else
+                    helper.update_do(shower,0);
+
+                if(switchMakeup.isChecked())
+                    helper.update_do(makeup,1);
+                else
+                    helper.update_do(makeup,0);
+
+                if(switchPack.isChecked())
+                    helper.update_do(pack,1);
+                else
+                    helper.update_do(pack,0);
+
+                if(switchDry.isChecked())
+                    helper.update_do(dry,1);
+                else
+                    helper.update_do(dry,0);
+
+                if(switchEat.isChecked())
+                    helper.update_do(eat,1);
+                else
+                    helper.update_do(eat,0);
+
+                if(switchClothes.isChecked())
+                    helper.update_do(clothes,1);
+                else
+                    helper.update_do(clothes,0);
+
+                if(switchStyling.isChecked())
+                    helper.update_do(styling,1);
+                else
+                    helper.update_do(styling,0);
+
+                if(switchPoo.isChecked())
+                    helper.update_do(poo,1);
+                else
+                    helper.update_do(poo,0);
+
 
 
                 // db = dbHelper.getWritableDatabase();
                 //db2 = dbHelper2.getWritableDatabase();
 
                 db=helper.getReadableDatabase();
-                Cursor cursor = db.rawQuery("Select name, time from tino ;", null);
+                Cursor cursor = db.rawQuery("Select * from tino;", null);
                 //Cursor cursor2 = db2.rawQuery(sql2, null);
                 int count = cursor.getCount();
                 Log.d(TAG, "count" + count);
 
                 if (cursor.getCount() > 0) {
                     while (cursor.moveToNext())
-                        Log.d("tesssssst", String.format("\n**name = %s, time = %s", cursor.getString(0), cursor.getString(1)));
+                        Log.d("test", String.format("\n**name = %s, do = %s", cursor.getString(1), cursor.getString(3)));
                 } else {
                     Log.d(TAG, "not exists");
                 }
@@ -189,8 +242,23 @@ public class ScheduleActivity extends Activity {
             Log.d(TAG, "not exists");
         }
         cursor.close();
+        db.close();
 
         return time;
+
+    }
+    public boolean chkSwitch(String task){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        String sql="Select do from tino where name ='"+task+"';";
+        Cursor cursor = db.rawQuery(sql,null);
+        int n=0;
+        while(cursor.moveToNext()) {
+            n = cursor.getInt(cursor.getColumnIndex("do"));
+        }
+        if(n==0)
+            return false;
+        else
+            return true;
 
     }
 

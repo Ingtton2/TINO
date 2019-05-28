@@ -3,6 +3,7 @@ package org.androidtown.tino;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.androidtown.tino.MultiAlarm.model.Alarm;
@@ -64,6 +65,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         // initialize and assign alarm values
         alarm = new Alarm(hour_x, minute_x, name1, toggleOn);
+        Log.d("sll", "name: " + name1 + ", time: " + hour_x+minute_x);
 
         return alarm;
     }

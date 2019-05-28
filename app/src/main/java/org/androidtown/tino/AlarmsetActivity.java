@@ -42,7 +42,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         setContentView(R.layout.activity_alarmset);
         ButterKnife.bind(this);
         initView();
-        selectAll(15,30);
+        selectAll(15,50);
     }
 
     // TODO: this initialize view for activity
@@ -229,6 +229,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         intent1.putExtra("intentType", intentType);
         // put alarm'id to compare with pendingIntent'id in AlarmService
         intent1.putExtra("AlarmId", (int) alarm.getId());
+        intent1.putExtra("task", alarm.getAlarm_Name());
         // this sent broadCast right a way
         sendBroadcast(intent1);
     }
@@ -323,7 +324,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         String sql;
         TinoDB helper =new TinoDB(this);
         db = helper.getReadableDatabase();
-        sql = "Select * from tino where time>=1;";
+        sql = "Select * from tino where time>=1 and do =1 ORDER BY id DESC;";
         Cursor cursor = db.rawQuery(sql, null);
         int count = cursor.getCount();
         Log.d("test", "count: " +count);
