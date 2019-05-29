@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.kwabenaberko.openweathermaplib.constants.Lang;
 import com.kwabenaberko.openweathermaplib.constants.Units;
 import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
 import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
+import com.kwabenaberko.openweathermaplib.models.common.Main;
 import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn;
     double latitude, longitude;
     ImageView weatherIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -151,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+        FrameLayout fragment_container = findViewById(R.id.fragment_container);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -160,10 +162,14 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         switch(menuItem.getItemId()) {
                             case R.id.action_home:
-                                setContentView(R.layout.activity_main);
+                                //setContentView(R.layout.activity_main);
+                                Intent i = new Intent(MainActivity.this, MainActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(i);
                                 break;
                             case R.id.action_schedule:
-                                //replaceFragment(ScheduleFragment.newInstance());
+                                // fragment 배경 설정할수있나?
+                                replaceFragment(ScheduleFragment.newInstance());
                                 break;
                             case R.id.action_check:
                                 //testText.setText("Check");
@@ -177,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
+
     @Override
     protected void onStart(){
         super.onStart();
