@@ -129,14 +129,14 @@ public class MainActivity extends AppCompatActivity {
         textDate.setText(mFormat.format(mDate));
         int hour=0;
         int minute=0;
-        Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
-       // intent.getExtras(hour,"scheduleHour");
+        //Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
+        //intent.getExtras(hour,"scheduleHour");
         //intent.getExtras(minute,"scheduleHour");
 
         btnNew.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, ScheduleActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
                 startActivity(intent);
 
             }
