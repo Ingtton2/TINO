@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -67,8 +68,8 @@
                                     android:id="@+id/textShower"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="씻기"
                                     android:textSize="18sp" />
 
@@ -84,14 +85,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchShower"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -101,8 +102,8 @@
                                     android:id="@+id/textMakeup"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="화장하기"
                                     android:textSize="18sp" />
 
@@ -118,14 +119,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchMakeup"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -136,8 +137,8 @@
                                     android:id="@+id/textDry"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="머리말리기"
                                     android:textSize="18sp" />
 
@@ -153,14 +154,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchDry"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -171,8 +172,8 @@
                                     android:id="@+id/textEat"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="밥먹기"
                                     android:textSize="18sp" />
 
@@ -188,14 +189,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchEat"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -206,8 +207,8 @@
                                     android:id="@+id/textClothes"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="옷고르기"
                                     android:textSize="18sp" />
 
@@ -223,14 +224,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchClothes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -241,8 +242,8 @@
                                     android:id="@+id/textStyling"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="고데기"
                                     android:textSize="18sp" />
 
@@ -258,14 +259,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchStyling"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -276,8 +277,8 @@
                                     android:id="@+id/textPack"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="가방챙기기"
                                     android:textSize="18sp" />
 
@@ -293,14 +294,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchPack"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>
@@ -311,8 +312,8 @@
                                     android:id="@+id/textPoo"
                                     android:layout_width="80dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:paddingLeft="20dp"
+                                    android:layout_weight="1.5"
+                                    android:paddingLeft="40dp"
                                     android:text="모닝똥"
                                     android:textSize="18sp" />
 
@@ -328,14 +329,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight="0.7"
                                     android:text="분" />
 
                                 <Switch
                                     android:id="@+id/switchPoo"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="30dp"
                                     android:thumb="@drawable/switch_thumb"
                                     android:track="@drawable/switch_track_selector" />
                         </TableRow>

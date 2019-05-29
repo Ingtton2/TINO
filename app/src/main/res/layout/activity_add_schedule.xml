@@ -33,10 +33,10 @@
 
     <Button
         android:id="@+id/btnOk"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:background="@drawable/btn_rounded"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="확인" />
 
 </LinearLayout>

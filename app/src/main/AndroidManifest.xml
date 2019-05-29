@@ -10,12 +10,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_tino"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -24,11 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LazyActivity"/>
+        <activity android:name=".LazyActivity" />
         <activity android:name=".BookmarkActivity" />
-        <activity android:name=".AddScheduleActivity"/>
-        <activity android:name=".StartActivity">
-        </activity>
+        <activity android:name=".AddScheduleActivity" />
+        <activity android:name=".StartActivity"></activity>
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AlarmsetActivity" />
@@ -44,6 +44,7 @@
             android:enabled="true"
             android:exported="true" />
 
+        <activity android:name=".CheckScheduleActivity"></activity>
     </application>
 
 </manifest>
