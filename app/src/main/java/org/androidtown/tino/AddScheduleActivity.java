@@ -35,22 +35,22 @@ public class AddScheduleActivity extends AppCompatActivity {
 
                 int hour = schedule_timepicker.getHour();
                 int minute = schedule_timepicker.getMinute();
-//                int id=helper.check();
-//                helper.insert(1,"Schedule",hour,minute);
-//
-//                SQLiteDatabase db = helper.getReadableDatabase();
-//                Cursor cursor = db.rawQuery("Select * from bookmark", null);
-//                //Cursor cursor2 = db2.rawQuery(sql2, null);
-//                int count = cursor.getCount();
-//                Log.d("schedule", "count" + count);
-//
-//                if (cursor.getCount() > 0) {
-//                    while (cursor.moveToNext())
-//                        Log.d("schedule", String.format("\n**id = %s,name = %s, hour = %s,minute = %s", cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
-//                } else {
-//                    Log.d("schedule", "not exists");
-//                }
-//                cursor.close();
+                int id=helper.check();
+                helper.insert(id,"Schedule",hour,minute);
+
+                SQLiteDatabase db = helper.getReadableDatabase();
+                Cursor cursor = db.rawQuery("Select * from bookmark", null);
+                //Cursor cursor2 = db2.rawQuery(sql2, null);
+                int count = cursor.getCount();
+                Log.d("schedule", "count" + count);
+
+                if (cursor.getCount() > 0) {
+                    while (cursor.moveToNext())
+                        Log.d("schedule", String.format("\n**id = %s,name = %s, hour = %s,minute = %s", cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                } else {
+                    Log.d("schedule", "not exists");
+                }
+                cursor.close();
 
                 Intent intent = new Intent(AddScheduleActivity.this, ScheduleActivity.class);
                 startActivity(intent);

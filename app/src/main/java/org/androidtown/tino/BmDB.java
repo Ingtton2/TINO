@@ -17,7 +17,7 @@ public class BmDB extends SQLiteOpenHelper {
     private static final String COL_Hour = "hour";        // this column store time
     private static final String COL_Min = "min";        // this column store do
 
-    private String CREATE_TABLE_BM= "CREATE TABLE IF NOT EXISTS tino ("
+    private String CREATE_TABLE_BM= "CREATE TABLE IF NOT EXISTS bookmark ("
             + COL_ID + " INTEGER, "  // this column contain alarm's id
             + COL_NAME + " TEXT, "      // task's name
             + COL_Hour + " INTEGER," // this column contain time
