@@ -31,7 +31,6 @@ import com.kwabenaberko.openweathermaplib.constants.Lang;
 import com.kwabenaberko.openweathermaplib.constants.Units;
 import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
 import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
-import com.kwabenaberko.openweathermaplib.models.common.Main;
 import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 
 import java.text.SimpleDateFormat;
@@ -164,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_home:
                                 //setContentView(R.layout.activity_main);
                                 Intent i = new Intent(MainActivity.this, MainActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                //i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(i);
                                 break;
                             case R.id.action_schedule:

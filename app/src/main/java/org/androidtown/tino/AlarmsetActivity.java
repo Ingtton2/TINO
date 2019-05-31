@@ -33,7 +33,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
     // this to manage data base
     private DataBaseManager dataBaseManager;
     // this to manage Alarm adapter like ArrayList
-    private AlarmAdapter alarmAdapter;
+    private static AlarmAdapter alarmAdapter;
 
 
     @Override
@@ -195,7 +195,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
     }
 
     // TODO: this check if Alarm have already existed
-    private boolean checkAlarm(Alarm alarm) {
+    public boolean checkAlarm(Alarm alarm) {
         boolean contain = false;
         for (Alarm alar : alarmAdapter.getmAlarms()) {
             if (alar.getHour_x() == alarm.getHour_x() && alar.getMinute_x() == alarm.getMinute_x())

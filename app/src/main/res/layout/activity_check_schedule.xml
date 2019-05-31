@@ -11,12 +11,18 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:src="@drawable/dinosaur2crop"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"/>
+
         <TextView
             android:id="@+id/checkInputTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:text="약속 장소까지"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -25,13 +31,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/checkInputHour"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:gravity="center"
+                android:text="1"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,7 +51,9 @@
                 android:id="@+id/checkInputMinute"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:gravity="center"
+                android:text="30"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +64,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="10dp"
             android:text="오늘의 스케쥴은"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -70,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="스케쥴 1"
+                    android:text="씻기"
                     android:textSize="18dp"
                     android:gravity="center"
                     android:paddingVertical="10dp"/>
@@ -81,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="18dp"
-                    android:text="0분"
+                    android:text="20분"
                     android:gravity="center"
                     />
             </TableRow>
@@ -92,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="스케쥴 2"
+                    android:text="머리말리기"
                     android:textSize="18dp"
                     android:gravity="center"
                     android:paddingVertical="10dp"/>
@@ -103,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="18dp"
-                    android:text="0분"
+                    android:text="10분"
                     android:gravity="center"/>
 
             </TableRow>
@@ -114,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="스케쥴 3"
+                    android:text="화장하기"
                     android:textSize="18dp"
                     android:gravity="center"
                     android:paddingVertical="10dp"/>
@@ -125,21 +136,100 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="18dp"
-                    android:text="0분"
+                    android:text="20분"
                     android:gravity="center"/>
 
             </TableRow>
 
+            <TableRow>
+                <TextView
+                    android:id="@+id/checkTextStyling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="고데기"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"/>
+
+                <TextView
+                    android:id="@+id/checkEditStyling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18dp"
+                    android:text="10분"
+                    android:gravity="center"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/checkTextClothes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="옷고르기"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"/>
+
+                <TextView
+                    android:id="@+id/checkEditClothes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18dp"
+                    android:text="10분"
+                    android:gravity="center"/>
+
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:id="@+id/checkTextPack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="가방챙기기"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"/>
+
+                <TextView
+                    android:id="@+id/checkEditPack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="18dp"
+                    android:text="5분"
+                    android:gravity="center"/>
+
+            </TableRow>
         </TableLayout>
 
-        <Button
-            android:id="@+id/checkOk"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_rounded"
-            android:text="확인"/>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="40dp">
+            <Button
+                android:id="@+id/checkOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:layout_marginRight="30dp"
+                android:text="확인"/>
+
+            <Button
+                android:id="@+id/checkChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="순서 변경"/>
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
