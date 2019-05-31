@@ -141,14 +141,14 @@ public class ScheduleActivity extends Activity {
                 //db2 = dbHelper2.getWritableDatabase();
 
                 db=helper.getReadableDatabase();
-                Cursor cursor = db.rawQuery("Select name, time from tino ;", null);
+                Cursor cursor = db.rawQuery("Select name, do from tino ;", null);
                 //Cursor cursor2 = db2.rawQuery(sql2, null);
                 int count = cursor.getCount();
                 Log.d(TAG, "count" + count);
 
                 if (cursor.getCount() > 0) {
                     while (cursor.moveToNext())
-                        Log.d("tesssssst", String.format("\n**name = %s, time = %s", cursor.getString(0), cursor.getString(1)));
+                        Log.d("tesssssst", String.format("\n**name = %s, do = %s", cursor.getString(0), cursor.getString(1)));
                 } else {
                     Log.d(TAG, "not exists");
                 }
