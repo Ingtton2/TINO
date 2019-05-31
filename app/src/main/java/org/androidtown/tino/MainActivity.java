@@ -176,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_more:
                                 //testText.setText("More");
+                                Intent i2 = new Intent(MainActivity.this, AlarmsetActivity.class);
+                                i2.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(i2);
                                 break;
                         }
                         return true;
