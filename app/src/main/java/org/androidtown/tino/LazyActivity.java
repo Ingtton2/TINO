@@ -35,7 +35,6 @@ public class LazyActivity extends AppCompatActivity {
                 editor.commit();
                 Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -52,6 +51,7 @@ public class LazyActivity extends AppCompatActivity {
 
             }
         });
+
         btnSlow.setOnClickListener(new View.OnClickListener(){
             @Override
 

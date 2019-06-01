@@ -75,6 +75,7 @@
                         android:text="다음 스케쥴까지 남은 시간은" />
 
                     <TextView
+                        android:id="@+id/textTime"
                         android:text="00시간 04분 39초"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -150,27 +151,6 @@
                     android:text="기존 스케쥴"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="나가기 전까지 할 일은"
-                    android:textSize="20dp"
-                    android:layout_margin="5dp"/>
-
-                <TextView
-                    android:id="@+id/mainScheduleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="07 : 00   기상"/>
-
-            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 
