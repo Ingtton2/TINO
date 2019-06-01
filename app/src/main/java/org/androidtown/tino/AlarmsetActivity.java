@@ -43,20 +43,17 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         setContentView(R.layout.activity_alarmset);
         ButterKnife.bind(this);
         initView();
-        Intent intent=getIntent();
-        int hour=intent.getIntExtra("hour",0);
-        int min=intent.getIntExtra("min",0);
+        SharedPreferences sf = getSharedPreferences("sTime",MODE_PRIVATE);
+        int hour=sf.getInt("hour",0);
+        int min=sf.getInt("min",0);
         Log.d("time3","hour:"+hour+"min:"+min);
 
-        AddAlarm(hour,min,"Go out");
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         int lazy = pref.getInt("lazy", 0);
         Log.d("Lazy","lax"+lazy);
         selectAll(hour,min,lazy);
 
-//        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//        startActivity(intent);
     }
 
     // TODO: this initialize view for activity
@@ -339,13 +336,16 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         int r_m = min;
         int re_time[];
 
+        re_time=compute_time(hour,min,lazy);
+        AddAlarm(re_time[0],re_time[1],"Go out");
+
         try {
             if (cursor != null) {
                 for (int i = 0; i < count; i++) {
                     cursor.moveToNext();
                     String task = cursor.getString(cursor.getColumnIndex("name"));
                     int time = cursor.getInt(cursor.getColumnIndex("time"));
-                    re_time=compute_time(r_h,r_m,time);
+                    re_time=compute_time(re_time[0],re_time[1],time);
                     r_h=re_time[0];
                     r_m=re_time[1];
                     AddAlarm(r_h,r_m,task);
@@ -361,6 +361,10 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
             db.close();
             cursor.close();
         }
+
+//
+//        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//        startActivity(intent);
 
     }
 

@@ -68,7 +68,7 @@ public class AlarmService extends Service {
                 int alarmId = intent.getExtras().getInt("AlarmId");
                 // check if mediaPlayer created or not and if media is playing and id of
                 // alarm and trigger pendingIntent is same  then stop music and reset it
-                if (mediaPlayer != null && mediaPlayer.isPlaying() && alarmId == AlarmReceiver.pendingId) {
+                if (mediaPlayer != null && mediaPlayer.isPlaying() && alarmId == -1) {
                     // stop media
                     mediaPlayer.stop();
                     // reset it

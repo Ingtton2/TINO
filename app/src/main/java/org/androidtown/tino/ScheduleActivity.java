@@ -2,6 +2,7 @@ package org.androidtown.tino;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -79,16 +80,16 @@ public class ScheduleActivity extends Activity {
             case R.id.ok:
 
                 //tino row가 하나도 없는 초기 상황이면 모두 0으로 입력값 insert
-                if(helper.check()==0){
-                    Log.d("test","input");
-                    helper.insert(0, "shower", "0",0);
-                    helper.insert(1, "makeup", "0",0);
-                    helper.insert(2, "pack", "0",0);
-                    helper.insert(3, "dry", "0",0);
-                    helper.insert(4, "eat", "0",0);
-                    helper.insert(5, "clothes", "0",0);
-                    helper.insert(6, "styling", "0",0);
-                    helper.insert(7, "poo", "0",0);
+                if (helper.check() == 0) {
+                    Log.d("test", "input");
+                    helper.insert(0, "shower", "0", 0);
+                    helper.insert(1, "makeup", "0", 0);
+                    helper.insert(2, "pack", "0", 0);
+                    helper.insert(3, "dry", "0", 0);
+                    helper.insert(4, "eat", "0", 0);
+                    helper.insert(5, "clothes", "0", 0);
+                    helper.insert(6, "styling", "0", 0);
+                    helper.insert(7, "poo", "0", 0);
                 }
 
 
@@ -108,85 +109,80 @@ public class ScheduleActivity extends Activity {
                 if (!showertime.equals(""))
                     helper.update(shower, showertime);
                 if (!makeuptime.equals(""))
-                    helper.update( makeup, makeuptime);
+                    helper.update(makeup, makeuptime);
                 if (!packtime.equals(""))
-                    helper.update( pack, packtime);
+                    helper.update(pack, packtime);
                 if (!drytime.equals(""))
-                    helper.update( dry, drytime);
+                    helper.update(dry, drytime);
                 if (!eattime.equals(""))
-                    helper.update( eat, eattime);
+                    helper.update(eat, eattime);
                 if (!clothestime.equals(""))
-                    helper.update( clothes, clothestime);
+                    helper.update(clothes, clothestime);
                 if (!stylingtime.equals(""))
-                    helper.update( styling, stylingtime);
+                    helper.update(styling, stylingtime);
                 if (!pootime.equals(""))
-                    helper.update( poo, pootime);
+                    helper.update(poo, pootime);
 
-                if(switchShower.isChecked())
-                    helper.update_do(shower,1);
+                if (switchShower.isChecked())
+                    helper.update_do(shower, 1);
                 else
-                    helper.update_do(shower,0);
+                    helper.update_do(shower, 0);
 
-                if(switchMakeup.isChecked())
-                    helper.update_do(makeup,1);
+                if (switchMakeup.isChecked())
+                    helper.update_do(makeup, 1);
                 else
-                    helper.update_do(makeup,0);
+                    helper.update_do(makeup, 0);
 
-                if(switchPack.isChecked())
-                    helper.update_do(pack,1);
+                if (switchPack.isChecked())
+                    helper.update_do(pack, 1);
                 else
-                    helper.update_do(pack,0);
+                    helper.update_do(pack, 0);
 
-                if(switchDry.isChecked())
-                    helper.update_do(dry,1);
+                if (switchDry.isChecked())
+                    helper.update_do(dry, 1);
                 else
-                    helper.update_do(dry,0);
+                    helper.update_do(dry, 0);
 
-                if(switchEat.isChecked())
-                    helper.update_do(eat,1);
+                if (switchEat.isChecked())
+                    helper.update_do(eat, 1);
                 else
-                    helper.update_do(eat,0);
+                    helper.update_do(eat, 0);
 
-                if(switchClothes.isChecked())
-                    helper.update_do(clothes,1);
+                if (switchClothes.isChecked())
+                    helper.update_do(clothes, 1);
                 else
-                    helper.update_do(clothes,0);
+                    helper.update_do(clothes, 0);
 
-                if(switchStyling.isChecked())
-                    helper.update_do(styling,1);
+                if (switchStyling.isChecked())
+                    helper.update_do(styling, 1);
                 else
-                    helper.update_do(styling,0);
+                    helper.update_do(styling, 0);
 
-                if(switchPoo.isChecked())
-                    helper.update_do(poo,1);
+                if (switchPoo.isChecked())
+                    helper.update_do(poo, 1);
                 else
-                    helper.update_do(poo,0);
+                    helper.update_do(poo, 0);
 
-                int h=0,m=0;
+                int h = 0, m = 0;
 
 
-                if(!hour.equals("")&&!minute.equals(""))
-                {
-                    h=Integer.parseInt(hour);
-                    m=Integer.parseInt(minute);
-                    helper2.addData(h,m,id);
+                if (!hour.equals("") && !minute.equals("")) {
+                    h = Integer.parseInt(hour);
+                    m = Integer.parseInt(minute);
+                    helper2.addData(h, m, id);
+                } else if (!hour.equals("")) {
+                    h = Integer.parseInt(hour);
+                    m = 0;
+                    helper2.addData(h, m, id);
+                } else if (!minute.equals("")) {
+                    h = 0;
+                    m = Integer.parseInt(minute);
+                    helper2.addData(h, m, id);
                 }
-                else if(!hour.equals(""))
-                {
-                    h=Integer.parseInt(hour);
-                    m=0;
-                    helper2.addData(h,m,id);
-                }
-                else if(!minute.equals(""))
-                {
-                    h=0;
-                    m=Integer.parseInt(minute);
-                    helper2.addData(h,m,id);
-                }
-                Log.d("hour2", "hour" + hour+"min"+ minute);
+                Log.d("hour2", "hour" + hour + "min" + minute);
 
 
-                db=helper.getReadableDatabase();
+                db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("Select name,time, do from tino ;", null);
                 //Cursor cursor2 = db2.rawQuery(sql2, null);
                 int count = cursor.getCount();
@@ -200,46 +196,44 @@ public class ScheduleActivity extends Activity {
                 }
                 cursor.close();
 
-                db2=helper2.getReadableDatabase();
-                Cursor cursor2 = db2.rawQuery("Select * from bookmark Where id="+id+" ;", null);
+                db2 = helper2.getReadableDatabase();
+                Cursor cursor2 = db2.rawQuery("Select * from bookmark Where id=" + id + " ;", null);
                 int count2 = cursor2.getCount();
                 Log.d("count2", "count" + count2);
 
                 cursor2.moveToNext();
-                int sh=cursor2.getInt(cursor2.getColumnIndex("hour"));
-                int sm=cursor2.getInt(cursor2.getColumnIndex("min"));
+                int sh = cursor2.getInt(cursor2.getColumnIndex("hour"));
+                int sm = cursor2.getInt(cursor2.getColumnIndex("min"));
                 cursor2.close();
-                Log.d("hour2","hour" + sh+"min"+ sm);
+                Log.d("hour2", "hour" + sh + "min" + sm);
 
-                if(h>sh&&m<sm){
-                    sh=sh+24-h;
-                    sm=sm-m;
+                if (h > sh && m <= sm) {
+                    sh = sh + 24 - h;
+                    sm = sm - m;
+                } else if (h >= sh && m > sm) {
+                    sh = sh + 23 - h;
+                    sm = sm + 60 - m;
+                } else if (h <= sh && m <= sm) {
+                    sh = sh - h;
+                    sm = sm - m;
+                } else if (h < sh && m > sm) {
+                    sh = sh - h - 1;
+                    sm = sm + 60 - m;
                 }
-                else if(h>sh&&m>sm){
-                    sh=sh+23-h;
-                    sm=sm+60-m;
-                }
-                else if(h<sh&&m<sm){
-                    sh=sh-h;
-                    sm=sm-m;
-                }
-                else if(h<sh&&m>sm){
-                    sh=sh-h-1;
-                    sm=sm+60-m;
-                }
-                Log.d("time2","hour:"+sh+"min:"+sm);
+                Log.d("time2", "hour:" + sh + "min:" + sm);
+                SharedPreferences sharedPreferences = getSharedPreferences("sTime",MODE_PRIVATE);
+                //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("hour",sh);
+                editor.putInt("min",sm);
+                editor.commit();
 
-                Intent intent2= new Intent(getApplicationContext(), AlarmsetActivity.class);
-                intent2.putExtra("hour",sh);
-                intent2.putExtra("min",sm);
+                Intent intent2 = new Intent(ScheduleActivity.this, CheckScheduleActivity.class);
                 startActivity(intent2);
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
                 break;
 
-            case R.id.delete: //전체삭제 버튼(delete)
-                helper.delete();
-                break;
         }
     }
 
