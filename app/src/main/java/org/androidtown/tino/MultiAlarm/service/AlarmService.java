@@ -35,7 +35,6 @@ public class AlarmService extends Service {
                 // this is system default alarm alert uri
                 Uri uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
                 // create mediaPlayer object
-                Log.d("popup","task: "+task);
                 mediaPlayer = MediaPlayer.create(this, uri);
                 mediaPlayer.start();
                 Log.d("alarmcheck","ok??");

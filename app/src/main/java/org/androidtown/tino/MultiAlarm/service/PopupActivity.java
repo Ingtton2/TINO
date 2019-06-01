@@ -33,7 +33,7 @@ public class PopupActivity extends Activity {
         //데이터 가져오기
         Intent intent = getIntent();
         String task = intent.getStringExtra("task");
-        txtText.setText(task + "Done?");
+        txtText.setText(task + " 시간!!");
 
     }
 

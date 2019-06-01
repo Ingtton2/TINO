@@ -28,6 +28,7 @@
         </activity>
         <activity android:name=".LazyActivity" />
         <activity android:name=".BookmarkActivity" />
+        <activity android:name=".HistoryClicked"/>
         <activity android:name=".AddScheduleActivity" />
         <activity android:name=".StartActivity" />
         <activity android:name=".ScheduleActivity" />
@@ -42,6 +43,7 @@
             android:name=".MultiAlarm.service.PopupActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
+
 
         <receiver
             android:name=".MultiAlarm.receiver.AlarmReceiver"
