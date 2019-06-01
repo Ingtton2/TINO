@@ -37,11 +37,11 @@ public class SetOrderActivity extends AppCompatActivity {
 
         mAdapter.add("씻기");
         mAdapter.add("머리말리기");
-        mAdapter.add("밥먹기");
+        //mAdapter.add("밥먹기");
         mAdapter.add("화장");
         mAdapter.add("고데기");
         mAdapter.add("옷고르기");
-        mAdapter.add("모닝똥");
+        // mAdapter.add("모닝똥");
         mAdapter.add("가방챙기기");
 
 

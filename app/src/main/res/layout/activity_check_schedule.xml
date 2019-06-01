@@ -57,100 +57,27 @@
             android:text="오늘의 스케쥴은"
             android:textSize="20dp"
             android:textStyle="bold" />
-
-        <TableLayout
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp">
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/checkTextShower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="스케쥴 1"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:paddingVertical="10dp"/>
-
-                <TextView
-                    android:id="@+id/checkEditShower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:text="0분"
-                    android:gravity="center"
-                    />
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/checkTextMakeup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="스케쥴 2"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:paddingVertical="10dp"/>
-
-                <TextView
-                    android:id="@+id/checkEditMakeup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:text="0분"
-                    android:gravity="center"/>
-
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:id="@+id/checkTextDry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="스케쥴 3"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:paddingVertical="10dp"/>
-
-                <TextView
-                    android:id="@+id/checkEditDry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18dp"
-                    android:text="0분"
-                    android:gravity="center"/>
-
-            </TableRow>
-
-        </TableLayout>
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9">
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/checkOk"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
-            <Button
-                android:id="@+id/checkOk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/btn_rounded"
-                android:text="확인"/>
-            <Button
-                android:id="@+id/checkOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/btn_rounded"
-                android:text="순서변경"/>
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_rounded"
+            android:text="확인"/>
+
     </LinearLayout>
 </LinearLayout>

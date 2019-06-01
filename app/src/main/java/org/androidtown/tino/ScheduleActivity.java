@@ -25,6 +25,7 @@ public class ScheduleActivity extends Activity {
     final static int dbVersion = 2;
     //static DBHelper dbHelper, dbHelper2;
     TinoDB helper;
+    BmDB helper2;
 
     // name column에 들어갈 string
     final static String shower = "shower", makeup = "makeup", pack = "pack", dry = "dry";
@@ -51,7 +52,9 @@ public class ScheduleActivity extends Activity {
 
         inputHour = findViewById(R.id.inputHour);
         inputMinute = findViewById(R.id.inputMinute);
+
         helper = new TinoDB(this);
+        helper2=new BmDB(this);
 
         switchShower = (Switch)findViewById(R.id.switchShower);
         switchMakeup = (Switch)findViewById(R.id.switchMakeup);
@@ -61,27 +64,14 @@ public class ScheduleActivity extends Activity {
         switchClothes = (Switch)findViewById(R.id.switchClothes);
         switchStyling = (Switch)findViewById(R.id.switchStyling);
         switchPoo = (Switch)findViewById(R.id.switchPoo);
-        //hint 저장된거 보이게 하고 싶은뎁 잘 안되서 ㅠㅠ
-//        int num=helper.check();
-//        if(num==8){
-//            editShower.setText(helper.hint("shower"));
-//            editMakeup .setText(helper.hint("makeup"));
-//            editPack.setText(helper.hint("pack"));
-//            editDry .setText(helper.hint("dry"));
-//            editEat .setText(helper.hint("eat"));
-//            editClothes .setText(helper.hint("clothes"));
-//            editStyling .setText(helper.hint("styling"));
-//            editPoo .setText(helper.hint("poo"));
-//        }
 
 
-       // dbHelper = new DBHelper(this, "tino.db", null, dbVersion);
-        //dbHelper2 = new DBHelper(this, "timetogo.db", null, dbVersion);
     }
 
     public void mOnClick(View v) {
         SQLiteDatabase db, db2;
-        String sql, sql2;
+        Intent intent=getIntent();
+        int id =intent.getIntExtra("id",0);
 
         // 북마크 디비 따로 해야함
 
@@ -102,11 +92,6 @@ public class ScheduleActivity extends Activity {
                 }
 
 
-                //Intent intent = new Intent(getApplicationContext(), AlarmsetActivity.class);
-                Intent intent = new Intent(getApplicationContext(), CheckScheduleActivity.class);
-                startActivity(intent);
-                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
-
                 showertime = editShower.getText().toString();
                 makeuptime = editMakeup.getText().toString();
                 packtime = editPack.getText().toString();
@@ -116,8 +101,8 @@ public class ScheduleActivity extends Activity {
                 stylingtime = editStyling.getText().toString();
                 pootime = editPoo.getText().toString();
 
-                //hour = inputHour.getText().toString();
-                //minute = inputMinute.getText().toString();
+                hour = inputHour.getText().toString();
+                minute = inputMinute.getText().toString();
 
                 //다시 입력한 값만 업데이트
                 if (!showertime.equals(""))
@@ -177,10 +162,29 @@ public class ScheduleActivity extends Activity {
                 else
                     helper.update_do(poo,0);
 
+                int h=0,m=0;
 
 
-                // db = dbHelper.getWritableDatabase();
-                //db2 = dbHelper2.getWritableDatabase();
+                if(!hour.equals("")&&!minute.equals(""))
+                {
+                    h=Integer.parseInt(hour);
+                    m=Integer.parseInt(minute);
+                    helper2.addData(h,m,id);
+                }
+                else if(!hour.equals(""))
+                {
+                    h=Integer.parseInt(hour);
+                    m=0;
+                    helper2.addData(h,m,id);
+                }
+                else if(!minute.equals(""))
+                {
+                    h=0;
+                    m=Integer.parseInt(minute);
+                    helper2.addData(h,m,id);
+                }
+                Log.d("hour2", "hour" + hour+"min"+ minute);
+
 
                 db=helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("Select name,time, do from tino ;", null);
@@ -195,6 +199,41 @@ public class ScheduleActivity extends Activity {
                     Log.d(TAG, "not exists");
                 }
                 cursor.close();
+
+                db2=helper2.getReadableDatabase();
+                Cursor cursor2 = db2.rawQuery("Select * from bookmark Where id="+id+" ;", null);
+                int count2 = cursor2.getCount();
+                Log.d("count2", "count" + count2);
+
+                cursor2.moveToNext();
+                int sh=cursor2.getInt(cursor2.getColumnIndex("hour"));
+                int sm=cursor2.getInt(cursor2.getColumnIndex("min"));
+                cursor2.close();
+                Log.d("hour2","hour" + sh+"min"+ sm);
+
+                if(h>sh&&m<sm){
+                    sh=sh+24-h;
+                    sm=sm-m;
+                }
+                else if(h>sh&&m>sm){
+                    sh=sh+23-h;
+                    sm=sm+60-m;
+                }
+                else if(h<sh&&m<sm){
+                    sh=sh-h;
+                    sm=sm-m;
+                }
+                else if(h<sh&&m>sm){
+                    sh=sh-h-1;
+                    sm=sm+60-m;
+                }
+                Log.d("time2","hour:"+sh+"min:"+sm);
+
+                Intent intent2= new Intent(getApplicationContext(), AlarmsetActivity.class);
+                intent2.putExtra("hour",sh);
+                intent2.putExtra("min",sm);
+                startActivity(intent2);
+                Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
                 break;
 

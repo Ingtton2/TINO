@@ -3,48 +3,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:weightSum="10"
-    tools:context="org.androidtown.tino.AlarmsetActivity">
-    <Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:theme="@style/ActionBar">
+    android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo2"
-            android:layout_marginEnd="30dp"/>
-
-    </Toolbar>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/alarmView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
-
-    </android.support.v7.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0">
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottomNavigation"
+        <TextView
+            android:id="@+id/checkInputTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:text="약속 장소까지"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="#111111"
-            app:itemTextColor="#111111"
-            app:menu="@menu/bottom_navigation_menu"
-            android:background="@color/colorPrimary"/>
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/checkInputHour"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시간  " />
+
+            <TextView
+                android:id="@+id/checkInputMinute"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="분" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:text="오늘의 스케쥴은"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/alarmView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/checkOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_rounded"
+            android:text="확인"/>
 
     </LinearLayout>
 </LinearLayout>

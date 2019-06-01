@@ -39,7 +39,7 @@ public class ChecklistActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               show();
+                show();
             }
         });
 

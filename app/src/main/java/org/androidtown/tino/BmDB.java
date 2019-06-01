@@ -15,13 +15,17 @@ public class BmDB extends SQLiteOpenHelper {
     private static final String COL_ID = "id";          // this column store task id
     private static final String COL_NAME = "name";    // this column store task
     private static final String COL_Hour = "hour";        // this column store time
-    private static final String COL_Min = "min";        // this column store do
+    private static final String COL_Min = "min";        // this column store minutes
+    private static final String COL_DHour = "d_hour";        // this column store time- destination
+    private static final String COL_DMin = "d_min";        // this column store minutes- destination
 
     private String CREATE_TABLE_BM= "CREATE TABLE IF NOT EXISTS bookmark ("
             + COL_ID + " INTEGER, "  // this column contain alarm's id
             + COL_NAME + " TEXT, "      // task's name
             + COL_Hour + " INTEGER," // this column contain time
-            + COL_Min + " INTEGER)"; // this column contain do
+            + COL_Min + " INTEGER,"  // this column contain min
+            + COL_DHour + " INTEGER," // this column contain time -destination
+            + COL_DMin + " INTEGER)"; // this column contain min-destination
 
 
     // TODO:   this is data base constructor
@@ -40,7 +44,7 @@ public class BmDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS bookmark");
         onCreate(db);
     }
-    public void insert(int id, String name,int hour,int min){
+    public void insert(int id, String name,int hour,int min,int dhour,int dmin){
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // ContentValues like a box to contain value in there
@@ -50,6 +54,8 @@ public class BmDB extends SQLiteOpenHelper {
         values.put(COL_NAME,name);
         values.put(COL_Hour,hour);
         values.put(COL_Min,min);
+        values.put(COL_DHour,dhour);
+        values.put(COL_DMin,dmin);
         // DB에 입력한 값으로 행 추가
         // insert to table
         db.insert(TABLE_NAME, null, values);
@@ -113,6 +119,14 @@ public class BmDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         // 입력한 항목과 일치하는 행의 가격 정보 수정
         db.execSQL("DELETE FROM bookmark WHERE id=" + id + ";");
+        db.close();
+    }
+    public void addData(int dhour, int dmin,int id){
+        SQLiteDatabase db = getWritableDatabase();
+        // 입력한 항목과 일치하는 행의 가격 정보 수정
+        String sql="UPDATE bookmark SET d_hour = "+ dhour + ", d_min ="+dmin+" WHERE id =" + id + ";";
+        db.execSQL(sql);
+
         db.close();
     }
 }

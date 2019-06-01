@@ -3,6 +3,7 @@ package org.androidtown.tino;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -43,7 +44,17 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         ButterKnife.bind(this);
         initView();
         Intent intent=getIntent();
-        selectAll(15,50);
+        int hour=intent.getIntExtra("hour",0);
+        int min=intent.getIntExtra("min",0);
+        Log.d("time3","hour:"+hour+"min:"+min);
+
+        AddAlarm(hour,min,"Go out");
+
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        int lazy = pref.getInt("lazy", 0);
+        Log.d("Lazy","lax"+lazy);
+        selectAll(hour,min,lazy);
+
 //        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 //        startActivity(intent);
     }
@@ -300,15 +311,21 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
             result_time[1]=min-time;
         }
         else{
-            result_time[0]=hour-1;
-            result_time[1]=min+60-time;
+            if(hour>0){
+                result_time[0]=hour-1;
+                result_time[1]=min+60-time;
+            }
+            else{
+                result_time[0]=hour+23;
+                result_time[1]=min+60-time;
+            }
         }
 
         return result_time;
     }
 
     // 모든 Data 읽어서 알람 설정
-    public void selectAll(int hour, int min) {
+    public void selectAll(int hour, int min,int lazy) {
 
         SQLiteDatabase db;
         String sql;
@@ -336,6 +353,10 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
                     Log.d("sls", "name: " + task + ", time: " + time);
                 }
             }
+            re_time=compute_time(r_h,r_m,lazy);
+            r_h=re_time[0];
+            r_m=re_time[1];
+            AddAlarm(r_h,r_m,"Wake up");
         } finally {
             db.close();
             cursor.close();

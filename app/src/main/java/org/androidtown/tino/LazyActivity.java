@@ -1,8 +1,12 @@
 package org.androidtown.tino;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +14,7 @@ public class LazyActivity extends AppCompatActivity {
     Button btnFast;
     Button btnMid;
     Button btnSlow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,11 +24,16 @@ public class LazyActivity extends AppCompatActivity {
         btnMid = (Button)findViewById(R.id.mid);
         btnSlow = (Button)findViewById(R.id.slow);
 
+
         btnFast.setOnClickListener(new View.OnClickListener(){
             @Override
 
             public void onClick(View v){
-                Intent intent = new Intent(LazyActivity.this, ChecklistActivity.class);
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("lazy", 3);
+                editor.commit();
+                Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -33,6 +43,10 @@ public class LazyActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v){
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("lazy", 5);
+                editor.commit();
                 Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
 
@@ -42,6 +56,10 @@ public class LazyActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View v){
+                SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt("lazy", 7);
+                editor.commit();
                 Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);
 

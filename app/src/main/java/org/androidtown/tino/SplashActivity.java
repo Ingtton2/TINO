@@ -1,6 +1,7 @@
 package org.androidtown.tino;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -15,9 +16,28 @@ public class SplashActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        SharedPreferences shPref=getSharedPreferences("MyPref",0);
+        int countValue=shPref.getInt("Count",-100);
 
-        Intent intent = new Intent(this, LazyActivity.class);
-        startActivity(intent);
-        finish();
+        if(countValue==-100)
+        {
+            countValue=1;
+            Intent intent = new Intent(this, LazyActivity.class);
+            startActivity(intent);
+            SharedPreferences.Editor prefEditor=shPref.edit();
+            prefEditor.putInt("Count",countValue);
+            prefEditor.commit();
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            SharedPreferences.Editor prefEditor=shPref.edit();
+            prefEditor.putInt("Count",countValue);
+            prefEditor.commit();
+            finish();
+        }
+
     }
 }
