@@ -23,7 +23,6 @@ public class TinoDB extends SQLiteOpenHelper {
             + COL_Time + " TEXT," // this column contain time
             + COL_Do + " INTEGER)"; // this column contain do
 
-
     // TODO:   this is data base constructor
     public TinoDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -74,7 +73,6 @@ public class TinoDB extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return num;
-
     }
     public String hint(String task){
         SQLiteDatabase db = getReadableDatabase();

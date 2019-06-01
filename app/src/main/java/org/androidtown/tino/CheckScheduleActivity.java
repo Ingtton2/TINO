@@ -20,9 +20,10 @@ public class CheckScheduleActivity extends AppCompatActivity {
         checkOk.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(CheckScheduleActivity.this, AlarmsetActivity.class);
+                Intent intent = new Intent(CheckScheduleActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 }
