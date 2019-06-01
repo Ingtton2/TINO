@@ -78,7 +78,7 @@ public class ScheduleActivity extends Activity {
 
         switch (v.getId()) {
             case R.id.ok:
-
+                helper.delete();
                 //tino row가 하나도 없는 초기 상황이면 모두 0으로 입력값 insert
                 if (helper.check() == 0) {
                     Log.d("test", "input");

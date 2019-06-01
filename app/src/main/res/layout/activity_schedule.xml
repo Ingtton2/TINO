@@ -15,7 +15,7 @@
                     android:id="@+id/inputTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="70dp"
                     android:layout_marginBottom="20dp"
                     android:text="약속 장소가는데 얼마나 걸리니?"
                     android:textSize="20dp"

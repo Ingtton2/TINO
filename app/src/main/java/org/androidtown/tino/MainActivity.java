@@ -1,8 +1,12 @@
 package org.androidtown.tino;
 
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,11 +21,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -33,23 +41,36 @@ import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
 import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
 import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     long mNow;
     Date mDate;
-    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy 년 MM 월 dd 일");
-    SimpleDateFormat mFormat2 = new SimpleDateFormat("HH 시간 mm분 ss초");
+    SimpleDateFormat mFormat2 = new SimpleDateFormat("yyyy 년 MM 월 dd 일");
+    String end;
     TextView textDate;
     TextView textnowtime;
+    TextView textTime;
+    TextView Remaintime;
     TextView textView0;
     ProgressBar bar;
     ProgressHandler handler;
     boolean isRunning = false;
     Button btnNew;
     Button btnExist;
+
+
+    private RecyclerView recyclerView;
+    private Button btn_add;
+
+    private ArrayList<Model> item_list = new ArrayList<>();
+    private ModelAdapter mAdapter;
+    String res;
+
 
     public static final String TAG = "GPSListener";
     TextView weatherText;
@@ -59,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -113,9 +134,44 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG, throwable.getMessage());
             }
         });
-
         textDate = (TextView)findViewById(R.id.textDate);
-        textnowtime = (TextView)findViewById(R.id.textRemaintime);
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        String getNow = mFormat2.format(date);
+        textDate.setText(getNow);
+
+        textTime = (TextView)findViewById(R.id.textTime);
+        Remaintime = (TextView)findViewById(R.id.textRemaintime);
+        String destHour=null;
+        String destMin=null;
+
+        SQLiteDatabase db;
+        String sql;
+        final BmDB helper2 = new BmDB(this);
+        db = helper2.getReadableDatabase();
+        sql = "Select hour, min from bookmark;";
+
+        Cursor cursor = db.rawQuery(sql,null);
+        final int last = cursor.getCount();
+        Log.d("last", String.format("%s",last));
+        try{
+            if(cursor != null || last>0) {
+                for (int i = 0; i < last; i++) {
+                    cursor.moveToNext();
+                    destHour = cursor.getString(cursor.getColumnIndex("hour"));
+                    Log.d("hour", destHour);
+                    destMin = cursor.getString(cursor.getColumnIndex("min"));
+                }
+            }
+            if(last == 0){
+                Remaintime.setText("");
+                textTime.setText("아직 스케쥴이 없네!");
+            }
+        }finally{
+            db.close();
+            cursor.close();
+        }
+        end = destHour + ":" + destMin + ":" + "00";
 
         textView0 = (TextView)findViewById(R.id.textView0);
         bar = (ProgressBar)findViewById(R.id.bar);
@@ -125,15 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         btnNew = (Button)findViewById(R.id.btnNew);
         btnExist = (Button)findViewById(R.id.btnExist);
-
-        mNow =System.currentTimeMillis();
-        mDate = new Date(mNow);
-        textDate.setText(mFormat.format(mDate));
-        int hour=0;
-        int minute=0;
-        //Intent intent = new Intent(MainActivity.this, AddScheduleActivity.class);
-        //intent.getExtras(hour,"scheduleHour");
-        //intent.getExtras(minute,"scheduleHour");
 
         btnNew.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -152,9 +199,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        btn_add= (Button) findViewById(R.id.btn_add);
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show();
+            }
+        });
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new ModelAdapter(item_list);
+        recyclerView.setAdapter(mAdapter);
+
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         final LinearLayout linear1 = findViewById(R.id.linear1);
         final LinearLayout linear2 = findViewById(R.id.linear2);
+        final LinearLayout linear3 = findViewById(R.id.linear3);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -165,20 +228,24 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_home:
                                 linear1.setVisibility(View.INVISIBLE);
                                 linear2.setVisibility(View.VISIBLE);
+                                linear3.setVisibility(View.INVISIBLE);
                                 break;
                             case R.id.action_schedule:
                                 linear2.setVisibility(View.INVISIBLE);
                                 linear1.setVisibility(View.VISIBLE);
+                                linear3.setVisibility(View.INVISIBLE);
                                 replaceFragment(ScheduleFragment.newInstance());
                                 break;
                             case R.id.action_check:
                                 linear2.setVisibility(View.INVISIBLE);
-                                linear1.setVisibility(View.VISIBLE);
-                                replaceFragment(CheckFragment.newInstance());
+                                linear1.setVisibility(View.INVISIBLE);
+                                linear3.setVisibility(View.VISIBLE);
+                                //replaceFragment(CheckFragment.newInstance());
                                 break;
                             case R.id.action_more:
                                 linear2.setVisibility(View.INVISIBLE);
                                 linear1.setVisibility(View.VISIBLE);
+                                linear3.setVisibility(View.INVISIBLE);
                                 replaceFragment(MoreFragment.newInstance());
                                 break;
                         }
@@ -187,6 +254,36 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
+    public void update(){
+
+
+
+    }
+
+
+    public void show (){
+        final EditText edittext = new EditText(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("할일을 입력해줘!");
+        builder.setView(edittext);
+        builder.setPositiveButton("입력",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        //Toast.makeText(getApplicationContext(),edittext.getText().toString(), Toast.LENGTH_LONG).show();
+                        res = edittext.getText().toString();
+                        item_list.add(new Model(res, false));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+        builder.setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
+    }
 
     @Override
     protected void onStart(){
@@ -194,17 +291,59 @@ public class MainActivity extends AppCompatActivity {
         bar.setProgress(0);
         Thread thread1 = new Thread(new Runnable() {
             public void run() {
-                try{for(int i=0; i<20 && isRunning; i++){
-                    Thread.sleep(1000);
-                    Message msg = handler.obtainMessage();
-                    handler.sendMessage(msg);
-                }}
+                try{
+                    for(int i=0; i<100 && isRunning; i++){
+                        Thread.sleep(100);
+                        Message msg = handler.obtainMessage();
+                        handler.sendMessage(msg);
+                    }}
                 catch(Exception ex){
                     Log.e("MainActivity","Exception in processing message.",ex);
                 }}
         });
         isRunning = true;
         thread1.start();
+
+        /*Thread thread2 = new Thread(new Runnable() {
+            public void run() {
+                SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
+                String start = mFormat.format(new Date()) ;
+                end = mFormat.format(end);
+                Date startDate = null;
+                Date endDate =null;
+
+                try {
+                    startDate = mFormat.parse(start);
+                    endDate = mFormat.parse(end);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try{
+                    long diff = endDate.getTime() - startDate.getTime();
+
+                    if(diff >0){
+                        int seconds = (int) (diff / 1000) % 60 ;
+                        int minutes = (int) ((diff / (1000*60)) % 60);
+                        int hours   = (int) ((diff / (1000*60*60)) % 24);
+                        textTime.setText(String.format("%d 시간 %d 분 %d초야",hours,minutes,seconds));
+                    }
+                    if(diff < 0) {
+                        diff += 24 * 60 * 60 * 1000;
+                        int seconds = (int) (diff / 1000) % 60;
+                        int minutes = (int) ((diff / (1000 * 60)) % 60);
+                        int hours = (int) ((diff / (1000 * 60 * 60)) % 24);
+                        textTime.setText(String.format("%d 시간 %d 분 %d초야.", hours, minutes, seconds));
+                    }
+                    while(true){
+                        Thread.sleep(100);
+                        Message msg = handler.obtainMessage();
+                        handler.sendMessage(msg);
+                    }}
+                catch(Exception ex){
+                    Log.e("MainActivity","Exception in processing message.",ex);
+                }}
+        });
+        thread2.start();*/
     }
 
     @Override
@@ -214,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public class ProgressHandler extends Handler {
         public void handleMessage(Message msg){
-            bar.incrementProgressBy(5);
+            bar.incrementProgressBy(1);
 
             if(bar.getProgress()==bar.getMax()){
                 textView0.setText("약속 시간이 되었어요 !");

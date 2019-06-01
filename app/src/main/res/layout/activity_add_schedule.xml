@@ -11,10 +11,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="내일 스케쥴 몇 시야?"
+        android:text="다음 스케쥴 몇 시야?"
         android:layout_marginBottom="30dp"
         android:textSize="30dp"
         android:gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/schedule_name"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="스케쥴 이름"
+        android:gravity="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

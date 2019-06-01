@@ -12,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidtown.tino.MultiAlarm.database.DataBaseManager;
@@ -35,12 +38,15 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
     private DataBaseManager dataBaseManager;
     // this to manage Alarm adapter like ArrayList
     private AlarmAdapter alarmAdapter;
-
+    Button checkOk;
+    TextView checkInputHour, checkInputMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmset);
+        checkInputHour = findViewById(R.id.checkInputHour);
+        checkInputMinute = findViewById(R.id.checkInputMinute);
         ButterKnife.bind(this);
         initView();
         SharedPreferences sf = getSharedPreferences("sTime",MODE_PRIVATE);
@@ -54,6 +60,38 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         Log.d("Lazy","lax"+lazy);
         selectAll(hour,min,lazy);
 
+        SQLiteDatabase db2;
+        String sql2;
+
+        final BmDB bookmark = new BmDB(this);
+        db2 = bookmark.getReadableDatabase();
+        sql2 = "select d_hour, d_min from bookmark;";
+
+        Cursor cursor2 = db2.rawQuery(sql2, null);
+        final int count2 = cursor2.getCount();
+        try {
+            if (cursor2!=null){
+                for (int i = 0; i < count2; i++) {
+                    cursor2.moveToNext();
+                    String d_hour = cursor2.getString(cursor2.getColumnIndex("d_hour"));
+                    String d_min = cursor2.getString(cursor2.getColumnIndex("d_min"));
+                    checkInputHour.setText(d_hour);
+                    checkInputMinute.setText(d_min);
+                }
+            }
+        } finally {
+            db2.close();
+            cursor2.close();
+        }
+
+        checkOk = findViewById(R.id.checkOk);
+        checkOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlarmsetActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // TODO: this initialize view for activity
