@@ -58,7 +58,7 @@ public class LazyActivity extends AppCompatActivity {
             public void onClick(View v){
                 SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("lazy", 7);
+                editor.putInt("lazy", 8);
                 editor.commit();
                 Intent intent = new Intent(LazyActivity.this, MainActivity.class);
                 startActivity(intent);

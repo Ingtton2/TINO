@@ -74,17 +74,10 @@ public class TinoDB extends SQLiteOpenHelper {
         db.close();
         return num;
     }
-    public String hint(String task){
+    public void update_index(String task,int id){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select time from tino where name = '"+task+"';", null);
-        int cu=cursor.getCount();
-        Log.d("time","check:"+cu);
-        String hint = cursor.getString(cursor.getColumnIndex("time"));
-        Log.d("time","check:"+hint);
-        cursor.close();
+        db.execSQL("UPDATE tino SET id=" + id + " WHERE name='" + task + "';");
         db.close();
-
-        return hint;
     }
     public void update_do(String task, int d){
         SQLiteDatabase db = getWritableDatabase();

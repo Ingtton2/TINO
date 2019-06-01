@@ -2,13 +2,17 @@ package org.androidtown.tino;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,18 +36,28 @@ public class SetOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_order);
 
         mListView = (ListView) findViewById(R.id.listView);
-
         mAdapter = new MyArrayAdapter(this, R.layout.order_item);
 
-        mAdapter.add("씻기");
-        mAdapter.add("머리말리기");
-        //mAdapter.add("밥먹기");
-        mAdapter.add("화장");
-        mAdapter.add("고데기");
-        mAdapter.add("옷고르기");
-        // mAdapter.add("모닝똥");
-        mAdapter.add("가방챙기기");
-
+        SQLiteDatabase db;
+        String sql;
+        final TinoDB helper =new TinoDB(this);
+        db = helper.getReadableDatabase();
+        sql = "Select * from tino where time>=1 and do =1 ORDER BY id DESC;";
+        Cursor cursor = db.rawQuery(sql, null);
+        final int count=cursor.getCount();
+        try {
+            if (cursor != null) {
+                for (int i = 0; i < count; i++) {
+                    cursor.moveToNext();
+                    String task = cursor.getString(cursor.getColumnIndex("name"));
+                    mAdapter.add(task);
+                    Log.d("sls", "name: " + task );
+                }
+            }
+        } finally {
+            db.close();
+            cursor.close();
+        }
 
         mListView.setAdapter(mAdapter);
 
@@ -87,7 +101,13 @@ public class SetOrderActivity extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(SetOrderActivity.this, MainActivity.class);
+                for(int i=0;i<count;i++){
+                    String task = (String)mListView.getItemAtPosition(i);
+                    helper.update_index(task,i);
+                    Log.d("order","task"+task+"po"+i);
+                }
+
+                Intent intent = new Intent(SetOrderActivity.this, AlarmsetActivity.class);
                 startActivity(intent);
             }
         });
