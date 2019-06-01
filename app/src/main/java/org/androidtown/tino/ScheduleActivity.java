@@ -236,10 +236,6 @@ public class ScheduleActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "저장되었습니다.", Toast.LENGTH_LONG).show();
 
                 break;
-
-            case R.id.delete: //전체삭제 버튼(delete)
-                helper.delete();
-                break;
         }
     }
 
