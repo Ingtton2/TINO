@@ -24,6 +24,5 @@ public class CheckScheduleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

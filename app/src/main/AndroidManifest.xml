@@ -14,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MoreActivity"></activity>
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
@@ -33,6 +32,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AlarmsetActivity" />
         <activity android:name=".AddAlarmActivity" />
+        <activity android:name=".MoreActivity"/>
 
         <receiver
             android:name=".MultiAlarm.receiver.AlarmReceiver"
