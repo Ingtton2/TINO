@@ -36,7 +36,7 @@ public class AddScheduleActivity extends AppCompatActivity {
                 int hour = schedule_timepicker.getHour();
                 int minute = schedule_timepicker.getMinute();
                 int id=helper.check();
-                helper.insert(id,"Schedule",hour,minute);
+                helper.insert(id,"Schedule",hour,minute,0,0);
 
                 SQLiteDatabase db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("Select * from bookmark", null);
@@ -53,11 +53,8 @@ public class AddScheduleActivity extends AppCompatActivity {
                 cursor.close();
 
                 Intent intent = new Intent(AddScheduleActivity.this, ScheduleActivity.class);
+                intent.putExtra("id",id);
                 startActivity(intent);
-//
-//                Intent intent2 = new Intent(AddScheduleActivity.this, MainActivity.class);
-//                intent2.putExtra("scheduleHour",hour);
-//                intent2.putExtra("scheduleMinute",minute);
 
             }
         });

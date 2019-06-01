@@ -22,8 +22,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,7 +31,6 @@ import com.kwabenaberko.openweathermaplib.constants.Lang;
 import com.kwabenaberko.openweathermaplib.constants.Units;
 import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
 import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
-import com.kwabenaberko.openweathermaplib.models.common.Main;
 import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 
 import java.text.SimpleDateFormat;
@@ -154,31 +153,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        FrameLayout fragment_container = findViewById(R.id.fragment_container);
+        final LinearLayout linear1 = findViewById(R.id.linear1);
+        final LinearLayout linear2 = findViewById(R.id.linear2);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
                         switch(menuItem.getItemId()) {
                             case R.id.action_home:
-                                //setContentView(R.layout.activity_main);
-                                Intent i = new Intent(MainActivity.this, MainActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                startActivity(i);
+                                linear1.setVisibility(View.INVISIBLE);
+                                linear2.setVisibility(View.VISIBLE);
                                 break;
                             case R.id.action_schedule:
-                                // fragment 배경 설정할수있나?
+                                linear2.setVisibility(View.INVISIBLE);
+                                linear1.setVisibility(View.VISIBLE);
                                 replaceFragment(ScheduleFragment.newInstance());
                                 break;
                             case R.id.action_check:
-                                //testText.setText("Check");
+                                linear2.setVisibility(View.INVISIBLE);
+                                linear1.setVisibility(View.VISIBLE);
+                                //replaceFragment(CheckFragment.newInstance());
                                 break;
                             case R.id.action_more:
-                                //testText.setText("More");
-                                Intent i2 = new Intent(MainActivity.this, AlarmsetActivity.class);
-                                i2.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                startActivity(i2);
+                                linear2.setVisibility(View.INVISIBLE);
+                                linear1.setVisibility(View.VISIBLE);
+                                replaceFragment(MoreFragment.newInstance());
                                 break;
                         }
                         return true;
@@ -226,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
+        fragmentTransaction.replace(R.id.linear1, fragment).commit();
     }
 
     final LocationListener gpsLocationListener = new LocationListener() {
