@@ -171,7 +171,7 @@
                     android:text="07 : 00   기상"/>
 
             </LinearLayout>
-         </LinearLayout>
+        </LinearLayout>
     </FrameLayout>
 
     <LinearLayout
