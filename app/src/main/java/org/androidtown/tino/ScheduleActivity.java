@@ -29,8 +29,8 @@ public class ScheduleActivity extends Activity {
     BmDB helper2;
 
     // name column에 들어갈 string
-    final static String shower = "shower", makeup = "makeup", pack = "pack", dry = "dry";
-    final static String eat = "eat", clothes = "clothes", styling = "styling", poo = "poo";
+    final static String shower = "씻기", makeup = "화장하기", pack = "가방챙기기", dry = "머리말리기";
+    final static String eat = "밥먹기", clothes = "옷고르기", styling = "고데기", poo = "모닝똥";
 
     // time column에 들어갈 time
     static String showertime = "0", makeuptime = "0", packtime = "0", drytime = "0";
@@ -82,14 +82,14 @@ public class ScheduleActivity extends Activity {
                 //tino row가 하나도 없는 초기 상황이면 모두 0으로 입력값 insert
                 if (helper.check() == 0) {
                     Log.d("test", "input");
-                    helper.insert(0, "shower", "0", 0);
-                    helper.insert(1, "makeup", "0", 0);
-                    helper.insert(2, "pack", "0", 0);
-                    helper.insert(3, "dry", "0", 0);
-                    helper.insert(4, "eat", "0", 0);
-                    helper.insert(5, "clothes", "0", 0);
-                    helper.insert(6, "styling", "0", 0);
-                    helper.insert(7, "poo", "0", 0);
+                    helper.insert(0, "씻기", "0", 0);
+                    helper.insert(1, "화장하기", "0", 0);
+                    helper.insert(2, "가방챙기기", "0", 0);
+                    helper.insert(3, "머리말리기", "0", 0);
+                    helper.insert(4, "밥먹기", "0", 0);
+                    helper.insert(5, "옷고르기", "0", 0);
+                    helper.insert(6, "고데기", "0", 0);
+                    helper.insert(7, "모닝똥", "0", 0);
                 }
 
 

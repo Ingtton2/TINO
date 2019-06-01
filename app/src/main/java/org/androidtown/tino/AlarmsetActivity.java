@@ -375,7 +375,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         int re_time[];
 
         re_time=compute_time(hour,min,lazy);
-        AddAlarm(re_time[0],re_time[1],"Go out");
+        AddAlarm(re_time[0],re_time[1],"출발");
 
         try {
             if (cursor != null) {
@@ -394,7 +394,7 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
             re_time=compute_time(r_h,r_m,lazy);
             r_h=re_time[0];
             r_m=re_time[1];
-            AddAlarm(r_h,r_m,"Wake up");
+            AddAlarm(r_h,r_m,"기상");
         } finally {
             db.close();
             cursor.close();

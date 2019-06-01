@@ -133,6 +133,17 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
 
     }
+    public String getName(int id){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql="SELECT alarm_name from alarm WHERE id = "+id;
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToNext();
+        String name = cursor.getString(cursor.getColumnIndex("alarm_name"));
+
+        return name;
+    }
 
     // TODO: get all Alarm from database and return arrayList alarm
     public ArrayList<Alarm> getAlarmList() {
