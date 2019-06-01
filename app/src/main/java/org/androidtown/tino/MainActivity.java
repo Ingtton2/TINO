@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_check:
                                 linear2.setVisibility(View.INVISIBLE);
                                 linear1.setVisibility(View.VISIBLE);
-                                //replaceFragment(CheckFragment.newInstance());
+                                replaceFragment(CheckFragment.newInstance());
                                 break;
                             case R.id.action_more:
                                 linear2.setVisibility(View.INVISIBLE);

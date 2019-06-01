@@ -35,7 +35,11 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AlarmsetActivity" />
         <activity android:name=".AddAlarmActivity" />
-
+        <activity
+            android:name=".MultiAlarm.service.PopupActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait">
+        </activity>
         <receiver
             android:name=".MultiAlarm.receiver.AlarmReceiver"
             android:enabled="true"
