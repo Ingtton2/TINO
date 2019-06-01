@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class ScheduleActivity extends Activity {
@@ -15,6 +16,7 @@ public class ScheduleActivity extends Activity {
     EditText editShower, editMakeup, editPack, editDry;
     EditText editEat, editClothes, editStyling, editPoo;
     EditText inputHour, inputMinute;
+    Switch switchShower,switchMakeup,switchPack,switchDry,switchEat,switchClothes,switchStyling,switchPoo;
     static int count = 0;
 
     // db information
@@ -51,14 +53,14 @@ public class ScheduleActivity extends Activity {
         inputMinute = findViewById(R.id.inputMinute);
         helper = new TinoDB(this);
 
-        editShower = findViewById(R.id.editShower);
-        editMakeup = findViewById(R.id.editMakeup);
-        editPack = findViewById(R.id.editPack);
-        editDry = findViewById(R.id.editDry);
-        editEat = findViewById(R.id.editEat);
-        editClothes = findViewById(R.id.editClothes);
-        editStyling = findViewById(R.id.editStyling);
-        editPoo = findViewById(R.id.editPoo);
+        switchShower = (Switch)findViewById(R.id.switchShower);
+        switchMakeup = (Switch)findViewById(R.id.switchMakeup);
+        switchPack = (Switch)findViewById(R.id.switchPack);
+        switchDry = (Switch)findViewById(R.id.switchDry);
+        switchEat = (Switch)findViewById(R.id.switchEat);
+        switchClothes = (Switch)findViewById(R.id.switchClothes);
+        switchStyling = (Switch)findViewById(R.id.switchStyling);
+        switchPoo = (Switch)findViewById(R.id.switchPoo);
         //hint 저장된거 보이게 하고 싶은뎁 잘 안되서 ㅠㅠ
 //        int num=helper.check();
 //        if(num==8){
@@ -135,20 +137,60 @@ public class ScheduleActivity extends Activity {
                 if (!pootime.equals(""))
                     helper.update( poo, pootime);
 
+                if(switchShower.isChecked())
+                    helper.update_do(shower,1);
+                else
+                    helper.update_do(shower,0);
+
+                if(switchMakeup.isChecked())
+                    helper.update_do(makeup,1);
+                else
+                    helper.update_do(makeup,0);
+
+                if(switchPack.isChecked())
+                    helper.update_do(pack,1);
+                else
+                    helper.update_do(pack,0);
+
+                if(switchDry.isChecked())
+                    helper.update_do(dry,1);
+                else
+                    helper.update_do(dry,0);
+
+                if(switchEat.isChecked())
+                    helper.update_do(eat,1);
+                else
+                    helper.update_do(eat,0);
+
+                if(switchClothes.isChecked())
+                    helper.update_do(clothes,1);
+                else
+                    helper.update_do(clothes,0);
+
+                if(switchStyling.isChecked())
+                    helper.update_do(styling,1);
+                else
+                    helper.update_do(styling,0);
+
+                if(switchPoo.isChecked())
+                    helper.update_do(poo,1);
+                else
+                    helper.update_do(poo,0);
+
 
 
                 // db = dbHelper.getWritableDatabase();
                 //db2 = dbHelper2.getWritableDatabase();
 
                 db=helper.getReadableDatabase();
-                Cursor cursor = db.rawQuery("Select name, do from tino ;", null);
+                Cursor cursor = db.rawQuery("Select name,time, do from tino ;", null);
                 //Cursor cursor2 = db2.rawQuery(sql2, null);
                 int count = cursor.getCount();
                 Log.d(TAG, "count" + count);
 
                 if (cursor.getCount() > 0) {
                     while (cursor.moveToNext())
-                        Log.d("tesssssst", String.format("\n**name = %s, do = %s", cursor.getString(0), cursor.getString(1)));
+                        Log.d("tesst", String.format("\n**name = %s, time = %s, do = %s", cursor.getString(0), cursor.getString(1), cursor.getString(2)));
                 } else {
                     Log.d(TAG, "not exists");
                 }

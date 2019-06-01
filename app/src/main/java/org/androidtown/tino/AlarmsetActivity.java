@@ -42,7 +42,10 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         setContentView(R.layout.activity_alarmset);
         ButterKnife.bind(this);
         initView();
+        Intent intent=getIntent();
         selectAll(15,50);
+//        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//        startActivity(intent);
     }
 
     // TODO: this initialize view for activity

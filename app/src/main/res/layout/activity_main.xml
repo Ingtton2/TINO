@@ -34,20 +34,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="40dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp">
+                android:layout_margin="20dp">
 
                 <LinearLayout
-                    android:layout_width="227dp"
+                    android:layout_width="182dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <TextView
@@ -55,43 +53,34 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" 오늘 날짜 "
-                        android:layout_margin="5dp"
                         android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/textRemaintime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="다음 스케쥴까지 남은 시간은" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="00시간 04분 39초"
-                        android:textSize="23dp" />
+                        android:text="남은 시간은 이만큼 입니다" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/weatherIcon"
-                        android:layout_width="70dp"
-                        android:layout_height="80dp"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/clearsky" />
 
                     <TextView
                         android:id="@+id/weatherText"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10℃"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -101,15 +90,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="working...."
-                android:layout_marginLeft="33dp"/>
+                android:layout_marginLeft="20dp"/>
 
             <ProgressBar
                 android:id="@+id/bar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:progressTint="#FFC000"
                 android:layout_width="343dp"
                 android:layout_height="80dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:max="100"/>
 
             <LinearLayout
@@ -137,81 +125,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp">
-
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="나가기 전까지 할 일은"
-                    android:textSize="20dp"
-                    android:layout_margin="5dp"/>
-
-                <TextView
-                    android:id="@+id/mainScheduleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="07 : 00   기상"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="07 : 00   씻기"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="07 : 20   머리말리기"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="07 : 30   화장하기"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="07 : 50   고데기"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="08 : 00   옷고르기"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="08 : 10   가방챙기기"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="3dp"
-                    android:text="08 : 15   외출 시간!"/>
-
+                    android:text="오늘의 스케쥴"
+                    android:textSize="15dp"/>
+                <include
+                    layout="@layout/activity_alarmset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
          </LinearLayout>
 
     </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -26,6 +26,11 @@ public class AlarmAdapter extends RecyclerView.Adapter {
     private ArrayList<Alarm> mAlarms;
     private CallBack mCallBack;
 
+    public AlarmAdapter(ArrayList<Alarm> mAlarms) {
+        this.mAlarms = mAlarms;
+    }
+
+
     public AlarmAdapter(ArrayList<Alarm> mAlarms, CallBack mCallBack) {
         this.mAlarms = mAlarms;
         this.mCallBack = mCallBack;

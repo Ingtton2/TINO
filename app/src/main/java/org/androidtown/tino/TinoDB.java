@@ -91,9 +91,7 @@ public class TinoDB extends SQLiteOpenHelper {
     public void update_do(String task, int d){
         SQLiteDatabase db = getWritableDatabase();
         // 입력한 항목과 일치하는 행의 가격 정보 수정
-        Log.d("asdfj","sf");
         String sql="UPDATE tino SET do = "+ d + " WHERE name ='" + task + "';";
-        Log.d("test2",sql);
         db.execSQL(sql);
 
         db.close();
