@@ -1,6 +1,8 @@
 package org.androidtown.tino;
 
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -19,11 +21,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -37,6 +43,7 @@ import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
     boolean isRunning = false;
     Button btnNew;
     Button btnExist;
+
+
+    private RecyclerView recyclerView;
+    private Button btn_add;
+
+    private ArrayList<Model> item_list = new ArrayList<>();
+    private ModelAdapter mAdapter;
+    String res;
 
 
     public static final String TAG = "GPSListener";
@@ -184,9 +199,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        btn_add= (Button) findViewById(R.id.btn_add);
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show();
+            }
+        });
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new ModelAdapter(item_list);
+        recyclerView.setAdapter(mAdapter);
+
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         final LinearLayout linear1 = findViewById(R.id.linear1);
         final LinearLayout linear2 = findViewById(R.id.linear2);
+        final LinearLayout linear3 = findViewById(R.id.linear3);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -197,20 +228,24 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_home:
                                 linear1.setVisibility(View.INVISIBLE);
                                 linear2.setVisibility(View.VISIBLE);
+                                linear3.setVisibility(View.INVISIBLE);
                                 break;
                             case R.id.action_schedule:
                                 linear2.setVisibility(View.INVISIBLE);
                                 linear1.setVisibility(View.VISIBLE);
+                                linear3.setVisibility(View.INVISIBLE);
                                 replaceFragment(ScheduleFragment.newInstance());
                                 break;
                             case R.id.action_check:
                                 linear2.setVisibility(View.INVISIBLE);
-                                linear1.setVisibility(View.VISIBLE);
-                                replaceFragment(CheckFragment.newInstance());
+                                linear1.setVisibility(View.INVISIBLE);
+                                linear3.setVisibility(View.VISIBLE);
+                                //replaceFragment(CheckFragment.newInstance());
                                 break;
                             case R.id.action_more:
                                 linear2.setVisibility(View.INVISIBLE);
                                 linear1.setVisibility(View.VISIBLE);
+                                linear3.setVisibility(View.INVISIBLE);
                                 replaceFragment(MoreFragment.newInstance());
                                 break;
                         }
@@ -223,6 +258,31 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    public void show (){
+        final EditText edittext = new EditText(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("할일을 입력해줘!");
+        builder.setView(edittext);
+        builder.setPositiveButton("입력",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which){
+                        //Toast.makeText(getApplicationContext(),edittext.getText().toString(), Toast.LENGTH_LONG).show();
+                        res = edittext.getText().toString();
+                        item_list.add(new Model(res, false));
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+        builder.setNegativeButton("취소",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        builder.show();
     }
 
     @Override
@@ -244,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         isRunning = true;
         thread1.start();
 
-        Thread thread2 = new Thread(new Runnable() {
+        /*Thread thread2 = new Thread(new Runnable() {
             public void run() {
                 SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
                 String start = mFormat.format(new Date()) ;
@@ -283,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("MainActivity","Exception in processing message.",ex);
                 }}
         });
-        thread2.start();
+        thread2.start();*/
     }
 
     @Override

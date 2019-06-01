@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ScheduleFragment extends Fragment {
-    TextView checkInputHour, checkInputMinute;
+    TextView checkInputHour, checkInputMinute, name;
     ListView listView;
 
     public static ScheduleFragment newInstance() {
@@ -32,6 +32,7 @@ public class ScheduleFragment extends Fragment {
         checkInputHour = layout.findViewById(R.id.checkInputHour);
         checkInputMinute = layout.findViewById(R.id.checkInputMinute);
         listView = layout.findViewById(R.id.listView);
+        name = layout.findViewById(R.id.name);
 
         SQLiteDatabase db, db2;
         String sql, sql2;
@@ -79,6 +80,28 @@ public class ScheduleFragment extends Fragment {
         } finally {
             db2.close();
             cursor2.close();
+        }
+
+        SQLiteDatabase db3;
+        String sql3;
+
+        final BmDB bookmark2 = new BmDB(getContext());
+        db3 = bookmark2.getReadableDatabase();
+        sql3 = "select name from bookmark;";
+
+        Cursor cursor3 = db3.rawQuery(sql3, null);
+        final int count3 = cursor3.getCount();
+        try {
+            if (cursor3!=null){
+                for (int i = 0; i < count3; i++) {
+                    cursor3.moveToNext();
+                    String Name = cursor3.getString(cursor3.getColumnIndex("name"));
+                    name.setText(Name);
+                }
+            }
+        } finally {
+            db3.close();
+            cursor3.close();
         }
 
         return layout;
