@@ -43,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     long mNow;
     Date mDate;
-    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy 년 MM 월 dd 일");
+    SimpleDateFormat mFormat2 = new SimpleDateFormat("yyyy 년 MM 월 dd 일");
     String end;
     TextView textDate;
     TextView textnowtime;
     TextView textTime;
+    TextView Remaintime;
     TextView textView0;
     ProgressBar bar;
     ProgressHandler handler;
@@ -118,6 +119,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG, throwable.getMessage());
             }
         });
+        textDate = (TextView)findViewById(R.id.textDate);
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        String getNow = mFormat2.format(date);
+        textDate.setText(getNow);
+
+        textTime = (TextView)findViewById(R.id.textTime);
+        Remaintime = (TextView)findViewById(R.id.textRemaintime);
         String destHour=null;
         String destMin=null;
 
@@ -125,25 +134,28 @@ public class MainActivity extends AppCompatActivity {
         String sql;
         final BmDB helper2 = new BmDB(this);
         db = helper2.getReadableDatabase();
-        sql = "Select * from bookmark";
+        sql = "Select hour, min from bookmark;";
 
         Cursor cursor = db.rawQuery(sql,null);
         final int last = cursor.getCount();
-
+        Log.d("last", String.format("%s",last));
         try{
-            if(cursor != null){
-
-                cursor.moveToLast();
-                destHour = cursor.getString(cursor.getColumnIndex("hour"));
-                destMin = cursor.getString(cursor.getColumnIndex("min"));
-
+            if(cursor != null || last>0) {
+                for (int i = 0; i < last; i++) {
+                    cursor.moveToNext();
+                    destHour = cursor.getString(cursor.getColumnIndex("hour"));
+                    Log.d("hour", destHour);
+                    destMin = cursor.getString(cursor.getColumnIndex("min"));
+                }
+            }
+            if(last == 0){
+                Remaintime.setText("");
+                textTime.setText("아직 스케쥴이 없네!");
             }
         }finally{
             db.close();
             cursor.close();
         }
-
-        textTime = (TextView)findViewById(R.id.textTime);
         end = destHour + ":" + destMin + ":" + "00";
 
         textView0 = (TextView)findViewById(R.id.textView0);
@@ -207,34 +219,10 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-    protected void update(){
-        mFormat  = new SimpleDateFormat("HH:mm:ss");
-        String start = mFormat.format(new Date()) ;
-        end = mFormat.format(end);
-        Date startDate = null;
-        Date endDate =null;
+    public void update(){
 
-        try {
-            startDate = mFormat.parse(start);
-            endDate = mFormat.parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        long diff = endDate.getTime() - startDate.getTime();
 
-        if(diff >0){
-            int seconds = (int) (diff / 1000) % 60 ;
-            int minutes = (int) ((diff / (1000*60)) % 60);
-            int hours   = (int) ((diff / (1000*60*60)) % 24);
-            textTime.setText(String.format("%d 시간 %d 분 %d초 남았습니다.",hours,minutes,seconds));
-        }
-        if(diff < 0)
-            diff += 24*60*60*1000;
-        int seconds = (int) (diff / 1000) % 60 ;
-        int minutes = (int) ((diff / (1000*60)) % 60);
-        int hours   = (int) ((diff / (1000*60*60)) % 24);
-        textTime.setText(String.format("%d 시간 %d 분 %d초 남았습니다.",hours,minutes,seconds));
     }
 
     @Override
@@ -245,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try{
                     for(int i=0; i<100 && isRunning; i++){
-                        update();
                         Thread.sleep(100);
                         Message msg = handler.obtainMessage();
                         handler.sendMessage(msg);
@@ -256,6 +243,47 @@ public class MainActivity extends AppCompatActivity {
         });
         isRunning = true;
         thread1.start();
+
+        Thread thread2 = new Thread(new Runnable() {
+            public void run() {
+                SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
+                String start = mFormat.format(new Date()) ;
+                end = mFormat.format(end);
+                Date startDate = null;
+                Date endDate =null;
+
+                try {
+                    startDate = mFormat.parse(start);
+                    endDate = mFormat.parse(end);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try{
+                    long diff = endDate.getTime() - startDate.getTime();
+
+                    if(diff >0){
+                        int seconds = (int) (diff / 1000) % 60 ;
+                        int minutes = (int) ((diff / (1000*60)) % 60);
+                        int hours   = (int) ((diff / (1000*60*60)) % 24);
+                        textTime.setText(String.format("%d 시간 %d 분 %d초야",hours,minutes,seconds));
+                    }
+                    if(diff < 0) {
+                        diff += 24 * 60 * 60 * 1000;
+                        int seconds = (int) (diff / 1000) % 60;
+                        int minutes = (int) ((diff / (1000 * 60)) % 60);
+                        int hours = (int) ((diff / (1000 * 60 * 60)) % 24);
+                        textTime.setText(String.format("%d 시간 %d 분 %d초야.", hours, minutes, seconds));
+                    }
+                    while(true){
+                        Thread.sleep(100);
+                        Message msg = handler.obtainMessage();
+                        handler.sendMessage(msg);
+                    }}
+                catch(Exception ex){
+                    Log.e("MainActivity","Exception in processing message.",ex);
+                }}
+        });
+        thread2.start();
     }
 
     @Override
