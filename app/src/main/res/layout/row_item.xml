@@ -40,11 +40,12 @@
 
             <ImageButton
                 android:id="@+id/btn_delete_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_margin="10dp"
+                android:scaleType="centerCrop"
                 android:background="@null"
-                android:src="@drawable/arrow_back" />
+                android:src="@drawable/delete" />
 
 
         </LinearLayout>
