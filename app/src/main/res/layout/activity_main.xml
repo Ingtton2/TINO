@@ -59,7 +59,15 @@
                         android:id="@+id/textRemaintime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="남은 시간은 이만큼 입니다" />
+                        android:layout_margin="5dp"
+                        android:text="다음 스케쥴까지 남은 시간은" />
+
+                    <TextView
+                        android:text="00시간 04분 39초"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="23dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -70,16 +78,17 @@
 
                     <ImageView
                         android:id="@+id/weatherIcon"
-                        android:layout_width="50dp"
-                        android:layout_height="60dp"
+                        android:layout_width="70dp"
+                        android:layout_height="80dp"
                         android:src="@drawable/clearsky" />
 
                     <TextView
                         android:id="@+id/weatherText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10℃"
-                        android:textSize="20dp"
+                        android:textSize="25dp"
+                        android:gravity="center"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -90,14 +99,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="working...."
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="33dp"/>
 
             <ProgressBar
                 android:id="@+id/bar"
+                android:progressTint="#FFC000"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="343dp"
                 android:layout_height="80dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:max="100"/>
 
             <LinearLayout
@@ -126,17 +136,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="오늘의 스케쥴"
                     android:textSize="15dp"/>
-                <include
-                    layout="@layout/activity_alarmset"
+
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"
+                    android:text="나가기 전까지 할 일은"
+                    android:textSize="20dp"
+                    android:layout_margin="5dp"/>
+
+                <TextView
+                    android:id="@+id/mainScheduleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="07 : 00   기상"/>
+
             </LinearLayout>
-         </LinearLayout>
+        </LinearLayout>
 
     </FrameLayout>
     <LinearLayout

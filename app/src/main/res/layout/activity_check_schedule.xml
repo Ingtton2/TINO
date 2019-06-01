@@ -131,15 +131,26 @@
             </TableRow>
 
         </TableLayout>
-
-        <Button
-            android:id="@+id/checkOk"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btn_rounded"
-            android:text="확인"/>
-
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/checkOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btn_rounded"
+                android:text="확인"/>
+            <Button
+                android:id="@+id/checkOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="순서변경"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

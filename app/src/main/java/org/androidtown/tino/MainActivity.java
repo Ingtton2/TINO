@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.action_check:
                                 //testText.setText("Check");
+                                Intent intent = new Intent(MainActivity.this,ChecklistActivity.class);
+                                startActivity(intent);
                                 break;
                             case R.id.action_more:
                                 //testText.setText("More");

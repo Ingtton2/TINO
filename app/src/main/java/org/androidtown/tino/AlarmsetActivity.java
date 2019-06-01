@@ -131,19 +131,6 @@ public class AlarmsetActivity extends AppCompatActivity implements AlarmAdapter.
         // TODO: this function is a function of callBack interface which was created in alarm adapter
         //TODO: process edit or delete based on user option
         switch (item.getItemId()) {
-            case R.id.edit:
-                // send edit intent to AddAlarmActivity to edit this would return alarm and position
-                Intent intent = new Intent(this, AddAlarmActivity.class);
-                // put screenType to set display for AddAlarmActivity
-                intent.putExtra("screenType", "edit");
-                // put alarm need to edit
-                intent.putExtra("AlarmEdit", alarm);
-                // put alarm's position
-                intent.putExtra("position", position);
-                // this start AddAlarmActivity and change the screen and change detail return
-                // one result on "onActivityResult" about
-                startActivityForResult(intent, Constants.REQUEST_EDIT);
-                break;
 
             case R.id.delete:
                 // when user click edit remove alarm

@@ -11,6 +11,7 @@ import com.kwabenaberko.openweathermaplib.models.common.Main;
 public class CheckScheduleActivity extends AppCompatActivity {
 
     Button checkOk;
+    Button checkOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +19,20 @@ public class CheckScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_check_schedule);
 
         checkOk = findViewById(R.id.checkOk);
+        checkOrder = findViewById(R.id.checkOrder);
 
         checkOk.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(CheckScheduleActivity.this, AlarmsetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        checkOrder.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(CheckScheduleActivity.this, SetOrderActivity.class);
                 startActivity(intent);
             }
         });
