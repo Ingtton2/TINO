@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.androidtown.tino">
+
     <!-- You need the wake lock so the phone can be activated -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- You need the permission to set the alarm -->
     <uses-permission android:name="your.package.alarm.permission.SET_ALARM" />
@@ -14,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutTinoActivity"></activity>
+        <activity android:name=".AboutTinoActivity" />
         <activity android:name=".DeveloperInfoActivity" />
         <activity
             android:name=".SplashActivity"
@@ -52,6 +53,8 @@
             android:name=".MultiAlarm.service.AlarmService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".CheckSchedule2Activity"></activity>
     </application>
 
 </manifest>

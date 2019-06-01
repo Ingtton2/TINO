@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 public class AddScheduleActivity extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class AddScheduleActivity extends AppCompatActivity {
     Context context;
     Button btnOk;
     BmDB helper;
+    EditText schedule_name;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         schedule_timepicker = findViewById(R.id.time_picker);
         helper=new BmDB(this);
+        schedule_name = findViewById(R.id.schedule_name);
 
         btnOk = (Button)findViewById(R.id.btnOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -33,10 +37,15 @@ public class AddScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (schedule_name.equals(""))
+                    name = "Schedule";
+                else
+                    name = schedule_name.getText().toString();
+
                 int hour = schedule_timepicker.getHour();
                 int minute = schedule_timepicker.getMinute();
                 int id=helper.check();
-                helper.insert(id,"Schedule",hour,minute,0,0);
+                helper.insert(id,name,hour,minute,0,0);
 
                 SQLiteDatabase db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("Select * from bookmark", null);
