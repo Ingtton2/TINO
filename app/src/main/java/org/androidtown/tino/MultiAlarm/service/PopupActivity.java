@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import org.androidtown.tino.MultiAlarm.ultil.Constants;
 import org.androidtown.tino.R;
 
 public class PopupActivity extends Activity {
@@ -22,6 +23,7 @@ public class PopupActivity extends Activity {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.7f;
+        layoutParams.flags=WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_popup);
 
@@ -37,10 +39,13 @@ public class PopupActivity extends Activity {
 
     //확인 버튼 클릭
     public void mOnClose(View v) {
-        //데이터 전달하기
-//        Intent intent = new Intent();
-//        intent.putExtra("result", "Close Popup");
-//        setResult(RESULT_OK, intent);
+
+        // if alarm is triggered and ringing, send this alarm detail to AlarmReceiver
+        Intent sendIntent =new Intent(this, AlarmService.class);
+        // then AlarmReceiver send detail to service to stop music
+        sendIntent.putExtra("ON_OFF", Constants.OFF_INTENT);
+        sendIntent.putExtra("AlarmId",-1);
+        startService(sendIntent);
 
         //액티비티(팝업) 닫기
         finish();
