@@ -1,17 +1,14 @@
 package org.androidtown.tino;
 
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,8 +28,6 @@ public class ChecklistActivity extends AppCompatActivity {
     }
 
     private void initControls() {
-
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         btn_add= (Button) findViewById(R.id.btn_add);
 
@@ -42,16 +37,12 @@ public class ChecklistActivity extends AppCompatActivity {
                 show();
             }
         });
-
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new ModelAdapter(item_list);
         recyclerView.setAdapter(mAdapter);
-
-
-
     }
+
     public void show (){
         final EditText edittext = new EditText(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -75,4 +66,6 @@ public class ChecklistActivity extends AppCompatActivity {
                 });
         builder.show();
     }
+
+
 }
