@@ -38,7 +38,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (schedule_name.equals(""))
-                    name = "Schedule";
+                    name = "일정";
                 else
                     name = schedule_name.getText().toString();
 

@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import org.androidtown.tino.MultiAlarm.database.DataBaseManager;
 import org.androidtown.tino.MultiAlarm.ultil.Constants;
 import org.androidtown.tino.R;
 
@@ -32,8 +33,11 @@ public class PopupActivity extends Activity {
 
         //데이터 가져오기
         Intent intent = getIntent();
-        String task = intent.getStringExtra("task");
-        txtText.setText(task + "Done?");
+        int id = intent.getIntExtra("id",0);
+        DataBaseManager helper= new DataBaseManager(this);
+        String name=helper.getName(id);
+
+        txtText.setText(name + " 시간이야!!");
 
     }
 
