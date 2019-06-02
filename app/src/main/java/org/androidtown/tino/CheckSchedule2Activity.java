@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CheckSchedule2Activity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class CheckSchedule2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_schedule2);
         ArrayList<String> arraylist = new ArrayList<String>();
+        ArrayList<String> alist = new ArrayList<String>();
 
         checkInputHour = findViewById(R.id.checkInputHour);
         checkInputMinute = findViewById(R.id.checkInputMinute);
@@ -73,6 +75,42 @@ public class CheckSchedule2Activity extends AppCompatActivity {
             db2.close();
             cursor2.close();
         }
+        /*
+        SQLiteDatabase db3;
+        ArrayAdapter<String> Adapter2;
+        Adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, alist);
 
+        ListView list = (ListView)findViewById(R.id.listView);
+        list.setAdapter(Adapter2);
+
+        ArrayList<HashMap<String,String>> Lists =new ArrayList<HashMap<String,String>> ();
+        HashMap<String, String> item;
+        item = new HashMap<String, String>;,
+        item.put("item1", name);
+        item.put("item2", time);
+        Lists.se
+
+
+        TinoDB tinoDB = new TinoDB(this);
+        db3 = tinoDB.getReadableDatabase();
+        String sql3 = "select name, time from tino ORDER BY id DESC;";
+
+        Cursor cursor3 = db3.rawQuery(sql3, null);
+        final int count3 = cursor3.getCount();
+        try {
+            if (cursor3!=null){
+                for (int i = 0; i < count3; i++) {
+                    cursor3.moveToNext();
+                    String name = cursor3.getString(cursor3.getColumnIndex("name"));
+                    String time = cursor3.getString(cursor3.getColumnIndex("time"));
+                    item.put("item1",name);
+                    item.put("item2",time);
+                    alist.add(item);
+                }
+            }
+        } finally {
+            db3.close();
+            cursor3.close();
+        }                    */
     }
 }

@@ -1,6 +1,5 @@
 package org.androidtown.tino;
 
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +40,8 @@ import com.kwabenaberko.openweathermaplib.implementation.OpenWeatherMapHelper;
 import com.kwabenaberko.openweathermaplib.implementation.callbacks.CurrentWeatherCallback;
 import com.kwabenaberko.openweathermaplib.models.currentweather.CurrentWeather;
 
+import org.androidtown.tino.MultiAlarm.database.DataBaseManager;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isRunning = false;
     Button btnNew;
     Button btnExist;
-
+    String wake;
 
     private RecyclerView recyclerView;
     private Button btn_add;
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
     private ModelAdapter mAdapter;
     String res;
 
+    Handler handler1 = new Handler() { //interaction with left dog
+        @Override
+        public void handleMessage(Message msg) {
+            updateThread(); //display the state of the left side
+        }
+    };
 
     public static final String TAG = "GPSListener";
     TextView weatherText;
@@ -145,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
         String destHour=null;
         String destMin=null;
 
-        SQLiteDatabase db;
-        String sql;
+        SQLiteDatabase db, db2;
+        String sql, sql2;
         final BmDB helper2 = new BmDB(this);
         db = helper2.getReadableDatabase();
         sql = "Select hour, min from bookmark;";
@@ -172,6 +179,36 @@ public class MainActivity extends AppCompatActivity {
             cursor.close();
         }
         end = destHour + ":" + destMin + ":" + "00";
+        Log.d("cheeek",end);
+
+        String wakeHour = null;
+        String wakeMinute = null;
+        textView0 = (TextView)findViewById(R.id.textView0);
+        final DataBaseManager helper3 = new DataBaseManager(this);
+        db2 = helper3.getReadableDatabase();
+        sql2="Select hour, minute from alarm where alarm_name ='기상';";
+
+        Cursor cursor2 = db2.rawQuery(sql2,null);
+        final int last2 = cursor2.getCount();
+        Log.d("last2", String.format("%s",last));
+        try{
+            if(cursor2 != null || last2>0) {
+                for (int i = 0; i < last2; i++) {
+                    cursor2.moveToNext();
+                    wakeHour = cursor2.getString(cursor2.getColumnIndex("hour"));
+                    wakeMinute = cursor2.getString(cursor2.getColumnIndex("minute"));
+                }
+            }
+            else{
+                bar.setProgress(0);
+                textView0.setText("...");
+            }
+        }finally{
+            db2.close();
+            cursor2.close();
+        }
+        wake = wakeHour + ":" + wakeMinute + ":" + "00";
+        Log.d("WakeupTime",wake);
 
         textView0 = (TextView)findViewById(R.id.textView0);
         bar = (ProgressBar)findViewById(R.id.bar);
@@ -253,13 +290,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-    }
-    public void update(){
-
-
 
     }
-
 
     public void show (){
         final EditText edittext = new EditText(this);
@@ -291,59 +323,61 @@ public class MainActivity extends AppCompatActivity {
         bar.setProgress(0);
         Thread thread1 = new Thread(new Runnable() {
             public void run() {
-                try{
-                    for(int i=0; i<100 && isRunning; i++){
-                        Thread.sleep(100);
-                        Message msg = handler.obtainMessage();
-                        handler.sendMessage(msg);
-                    }}
+                try{ while(true){
+                    Thread.sleep(1);
+                    Message msg = handler.obtainMessage();
+                    handler.sendMessage(msg);
+                }}
                 catch(Exception ex){
                     Log.e("MainActivity","Exception in processing message.",ex);
                 }}
         });
-        isRunning = true;
+        isRunning=true;
         thread1.start();
 
-        /*Thread thread2 = new Thread(new Runnable() {
+        Thread thread2 = new Thread(new Runnable() {
             public void run() {
-                SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
-                String start = mFormat.format(new Date()) ;
-                end = mFormat.format(end);
-                Date startDate = null;
-                Date endDate =null;
-
-                try {
-                    startDate = mFormat.parse(start);
-                    endDate = mFormat.parse(end);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
                 try{
-                    long diff = endDate.getTime() - startDate.getTime();
-
-                    if(diff >0){
-                        int seconds = (int) (diff / 1000) % 60 ;
-                        int minutes = (int) ((diff / (1000*60)) % 60);
-                        int hours   = (int) ((diff / (1000*60*60)) % 24);
-                        textTime.setText(String.format("%d 시간 %d 분 %d초야",hours,minutes,seconds));
-                    }
-                    if(diff < 0) {
-                        diff += 24 * 60 * 60 * 1000;
-                        int seconds = (int) (diff / 1000) % 60;
-                        int minutes = (int) ((diff / (1000 * 60)) % 60);
-                        int hours = (int) ((diff / (1000 * 60 * 60)) % 24);
-                        textTime.setText(String.format("%d 시간 %d 분 %d초야.", hours, minutes, seconds));
-                    }
                     while(true){
-                        Thread.sleep(100);
-                        Message msg = handler.obtainMessage();
-                        handler.sendMessage(msg);
+                        Thread.sleep(1000);
+                        Message msg = handler1.obtainMessage();
+                        handler1.sendMessage(msg);
                     }}
                 catch(Exception ex){
                     Log.e("MainActivity","Exception in processing message.",ex);
                 }}
         });
-        thread2.start();*/
+        thread2.start();
+
+    }
+
+    public void updateThread(){
+        SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
+        String start = mFormat.format(new Date()) ;
+        Date startDate = null;
+        Date endDate =null;
+
+        try {
+            startDate = mFormat.parse(start);
+            endDate = mFormat.parse(end);
+            long diff = endDate.getTime() - startDate.getTime();
+            Log.d("diff",String.format("%s",diff));
+            if(diff >0){
+                int seconds = (int) (diff / 1000) % 60 ;
+                int minutes = (int) ((diff / (1000*60)) % 60);
+                int hours   = (int) ((diff / (1000*60*60)) % 24);
+                textTime.setText(String.format("%d 시간 %d 분 %d초야",hours,minutes,seconds));
+            }
+            if(diff < 0) {
+                diff += 24 * 60 * 60 * 1000;
+                int seconds = (int) (diff / 1000) % 60;
+                int minutes = (int) ((diff / (1000 * 60)) % 60);
+                int hours = (int) ((diff / (1000 * 60 * 60)) % 24);
+                textTime.setText(String.format("%d 시간 %d 분 %d초야", hours, minutes, seconds));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -351,15 +385,41 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         isRunning = false;
     }
+
     public class ProgressHandler extends Handler {
         public void handleMessage(Message msg){
-            bar.incrementProgressBy(1);
+            SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
+            String start = mFormat.format(new Date()) ;
+            Date startDate = null;
+            Date endDate =null;
+            Date wakeDate = null;
+            try {
+                startDate = mFormat.parse(start);
+                endDate = mFormat.parse(end);
+                wakeDate = mFormat.parse(wake);
 
-            if(bar.getProgress()==bar.getMax()){
-                textView0.setText("약속 시간이 되었어요 !");
-            }else{
-                textView0.setText(String.format("%s", bar.getProgress()));
+                long up = startDate.getTime() - wakeDate.getTime();
+                long down = endDate.getTime() - wakeDate.getTime();
+                Log.d("up",String.format("%s",up));
+                Log.d("down",String.format("%s",down));
+                bar.setMax((int)down);
+
+                bar.incrementProgressBy(1);
+
+                if(bar.getProgress()==bar.getMax()){
+                    textView0.setText(String.format("약속시간이야! 좋은 하루 보내!"));
+                }
+                if(up <0) {
+                    bar.setProgress(0);
+                    textView0.setText("아직 쉬어도 돼!");
+                }
+                else{
+                    textView0.setText(String.format("%s", (float)bar.getProgress()));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+
         }
     }
 
