@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.androidtown.tino">
+    package="org.androidtown.tino"
+    android:versionCode="2"
+    android:versionName="1.1">
 
     <!-- You need the wake lock so the phone can be activated -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- You need the permission to set the alarm -->

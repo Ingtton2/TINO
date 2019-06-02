@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:layout_marginBottom="50dp">
 
             <LinearLayout
@@ -77,35 +77,38 @@
                 android:layout_margin="20dp">
 
                 <LinearLayout
-                    android:layout_width="227dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/textDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 오늘 날짜 "
                         android:layout_margin="5dp"
-                        android:textSize="20dp" />
+                        android:text=" 오늘 날짜 "
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/textRemaintime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
+                        android:textStyle="bold"
                         android:text="다음 스케쥴까지 남은 시간은" />
 
                     <TextView
                         android:id="@+id/textTime"
-                        android:text="00시간 04분 39초"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:textSize="23dp"/>
+                        android:textStyle="bold"
+                        android:text="00시간 00분 00초"
+                        android:textSize="23dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -113,7 +116,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:layout_marginRight="20dp">
 
                     <ImageView
                         android:id="@+id/weatherIcon"
@@ -155,9 +159,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="35dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="35dp"
                 android:layout_marginBottom="10dp">
                 android:gravity="center">
 
@@ -167,14 +171,15 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:text="새로운 스케쥴" />
+                    android:text="새로운 스케쥴"
+                    android:textSize="14dp"/>
 
                 <Button
                     android:background="@drawable/btn_rounded"
                     android:id="@+id/btnExist"
                     android:layout_width="150dp"
+                    android:textSize="14dp"
                     android:layout_height="wrap_content"
-
                     android:text="기존 스케쥴"/>
             </LinearLayout>
 

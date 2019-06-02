@@ -98,28 +98,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        weatherText = findViewById(R.id.weatherText);
-//        weatherIcon = findViewById(R.id.weatherIcon);
-//        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//        if (Build.VERSION.SDK_INT >= 23 &&
-//                ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-//                    0);
-//        } else {
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
-//
-//            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-//                    1000,
-//                    1,
-//                    gpsLocationListener);
-//            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-//                    1000,
-//                    1,
-//                    gpsLocationListener);
-//        }
+        weatherText = findViewById(R.id.weatherText);
+        weatherIcon = findViewById(R.id.weatherIcon);
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    0);
+        } else {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000,
+                    1,
+                    gpsLocationListener);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    1000,
+                    1,
+                    gpsLocationListener);
+        }
 
         //Instantiate Class With Your ApiKey As The Parameter
         OpenWeatherMapHelper helper = new OpenWeatherMapHelper("9d0ecaac6ad18c1a3b072f7c87ee845c");
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         +"Temperature: " + ((currentWeather.getMain().getTempMax() - 32.0) / 1.8) +"\n"
                         +"City, Country: " + currentWeather.getName() + ", " + currentWeather.getSys().getCountry()
                 );
-                //  setting(description, temperature);
+                setting(description, temperature);
             }
 
             @Override
@@ -398,7 +398,7 @@ public class MainActivity extends AppCompatActivity {
                 int seconds = (int) (diff / 1000) % 60;
                 int minutes = (int) ((diff / (1000 * 60)) % 60);
                 int hours = (int) ((diff / (1000 * 60 * 60)) % 24);
-                textTime.setText(String.format("%d 시간 %d 분 %d초야", hours, minutes, seconds));
+                textTime.setText(String.format("%d 시간 %d 분 %d 초야", hours, minutes, seconds));
             }
         } catch (ParseException e) {
             e.printStackTrace();

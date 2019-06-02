@@ -14,10 +14,10 @@
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:id="@+id/s_Name"
-            android:layout_gravity="center_vertical"
+            android:gravity="center"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
-            android:textSize="30dp"/>
+            android:textSize="15dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,8 @@
                 android:id="@+id/sHour"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +42,8 @@
                 android:id="@+id/sMinute"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
