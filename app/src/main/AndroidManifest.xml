@@ -35,7 +35,6 @@
         <activity android:name=".AddAlarmActivity" />
         <activity android:name=".SetOrderActivity" />
         <activity android:name=".CheckScheduleActivity" />
-        <activity android:name=".CheckSchedule2Activity" />
         <activity android:name=".AboutTinoActivity" />
         <activity android:name=".DeveloperInfoActivity" />
 

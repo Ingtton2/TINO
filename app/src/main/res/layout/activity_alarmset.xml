@@ -9,13 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="25dp">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="93dp"
+            android:src="@drawable/dinosaur" />
 
         <TextView
             android:id="@+id/checkInputTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:text="약속 장소까지"
             android:textSize="20dp"
@@ -29,24 +35,28 @@
 
             <TextView
                 android:id="@+id/checkInputHour"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="18dp"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:text="시간  " />
 
             <TextView
                 android:id="@+id/checkInputMinute"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="18dp"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:text="분" />
         </LinearLayout>
 

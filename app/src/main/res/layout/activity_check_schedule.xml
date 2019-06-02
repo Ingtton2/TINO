@@ -9,7 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="25dp">
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="93dp"
+            android:src="@drawable/dinosaur" />
 
         <TextView
             android:id="@+id/checkInputTime"
@@ -29,24 +35,28 @@
 
             <TextView
                 android:id="@+id/checkInputHour"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="18dp"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:text="시간  " />
 
             <TextView
                 android:id="@+id/checkInputMinute"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="18dp"
+                android:gravity="center"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:text="분" />
         </LinearLayout>
 
@@ -65,7 +75,10 @@
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:dividerHeight="0dp"
+                android:layout_gravity="center"
+                android:textAlignment="center">
 
             </ListView>
         </FrameLayout>
@@ -82,6 +95,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/btn_rounded"
+                android:textSize="15dp"
                 android:text="확인"/>
 
             <Button
@@ -90,7 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/btn_rounded"
-                android:text="순서 변경"/>
+                android:text="순서 변경"
+                android:textSize="15dp"/>
         </LinearLayout>
 
     </LinearLayout>

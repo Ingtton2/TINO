@@ -320,11 +320,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        bar.setProgress(0);
+        //bar.setProgress(0);
         Thread thread1 = new Thread(new Runnable() {
             public void run() {
                 try{ while(true){
-                    Thread.sleep(1);
+                    Thread.sleep(100);
                     Message msg = handler.obtainMessage();
                     handler.sendMessage(msg);
                 }}
