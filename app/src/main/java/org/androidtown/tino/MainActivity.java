@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     long mNow;
     Date mDate;
+    SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
     SimpleDateFormat mFormat2 = new SimpleDateFormat("yyyy 년 MM 월 dd 일");
     String end;
+    String start;
     TextView textDate;
     TextView textnowtime;
     TextView textTime;
@@ -64,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
     Button btnNew;
     Button btnExist;
     String wake;
+    Date endDate;
+    Date wakeDate ;
+    Date startDate;
+    long down;
+    long up;
 
     private RecyclerView recyclerView;
     private Button btn_add;
@@ -141,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG, throwable.getMessage());
             }
         });
+
+
         textDate = (TextView)findViewById(R.id.textDate);
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -209,10 +218,27 @@ public class MainActivity extends AppCompatActivity {
         }
         wake = wakeHour + ":" + wakeMinute + ":" + "00";
         Log.d("WakeupTime",wake);
+        endDate=null;
+        wakeDate=null;
+        startDate = null;
+        try {
+            start = mFormat.format(new Date()) ;
+            endDate = mFormat.parse(end);
+            wakeDate = mFormat.parse(wake);
+            startDate = mFormat.parse(start);
+            down = endDate.getTime() - wakeDate.getTime();
+
+            long up = startDate.getTime() - wakeDate.getTime();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         textView0 = (TextView)findViewById(R.id.textView0);
         bar = (ProgressBar)findViewById(R.id.bar);
         bar.setScaleY(8f);
+        bar.setMax((int)down);
 
         handler = new ProgressHandler();
 
@@ -324,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
         Thread thread1 = new Thread(new Runnable() {
             public void run() {
                 try{ while(true){
-                    Thread.sleep(100);
+                    Thread.sleep(1);
                     Message msg = handler.obtainMessage();
                     handler.sendMessage(msg);
                 }}
@@ -352,7 +378,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateThread(){
-        SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
         String start = mFormat.format(new Date()) ;
         Date startDate = null;
         Date endDate =null;
@@ -388,36 +413,17 @@ public class MainActivity extends AppCompatActivity {
 
     public class ProgressHandler extends Handler {
         public void handleMessage(Message msg){
-            SimpleDateFormat mFormat  = new SimpleDateFormat("HH:mm:ss");
-            String start = mFormat.format(new Date()) ;
-            Date startDate = null;
-            Date endDate =null;
-            Date wakeDate = null;
-            try {
-                startDate = mFormat.parse(start);
-                endDate = mFormat.parse(end);
-                wakeDate = mFormat.parse(wake);
 
-                long up = startDate.getTime() - wakeDate.getTime();
-                long down = endDate.getTime() - wakeDate.getTime();
-                Log.d("up",String.format("%s",up));
-                Log.d("down",String.format("%s",down));
-                bar.setMax((int)down);
-
+            if(bar.getProgress()==bar.getMax()){
+                textView0.setText(String.format("약속시간이야! 좋은 하루 보내!"));
+            }
+            if(up <0) {
+                bar.setProgress(0);
+                textView0.setText("아직 쉬어도 돼!");
+            }
+            else{
                 bar.incrementProgressBy(1);
-
-                if(bar.getProgress()==bar.getMax()){
-                    textView0.setText(String.format("약속시간이야! 좋은 하루 보내!"));
-                }
-                if(up <0) {
-                    bar.setProgress(0);
-                    textView0.setText("아직 쉬어도 돼!");
-                }
-                else{
-                    textView0.setText(String.format("%s", (float)bar.getProgress()));
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
+                textView0.setText(String.format("%s 퍼센트 진행 중!", (float)bar.getProgress()/down*100));
             }
 
         }
