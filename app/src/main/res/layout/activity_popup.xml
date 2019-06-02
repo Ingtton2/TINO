@@ -10,6 +10,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:text="알람 메시지"
             android:textSize="20sp"
@@ -18,6 +19,7 @@
             android:background="#D6C7ED"
             android:layout_width="match_parent"
             android:layout_height="53dp" />
+
     </LinearLayout>
     <!-- //end 타이틀바 -->
 

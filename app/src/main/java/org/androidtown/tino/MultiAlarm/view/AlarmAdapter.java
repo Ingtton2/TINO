@@ -101,7 +101,7 @@ public class AlarmAdapter extends RecyclerView.Adapter {
             boolean isChecked = toggleButton.isChecked();
             if (isChecked) {
                 // change time' text color if toggle state have changed
-                time.setTextColor(Color.rgb(155, 231, 174));
+                time.setTextColor(Color.rgb(214, 199, 237));
                 // start alarm when toggle on, getPosition method support by RecyclerView
                 mCallBack.startAlarm(mAlarms.get(getPosition()));
             } else {
@@ -124,7 +124,7 @@ public class AlarmAdapter extends RecyclerView.Adapter {
                 case 1:
                     toggleButton.setChecked(true);
                     // this set color for time' text green if toggle on on the bind view time
-                    time.setTextColor(Color.rgb(155, 231, 174));
+                    time.setTextColor(Color.rgb(214, 199, 237));
                     break;
                 case 0:
                     toggleButton.setChecked(false);

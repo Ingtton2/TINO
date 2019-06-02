@@ -37,10 +37,11 @@ public class AddScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (schedule_name.equals(""))
-                    name = "일정";
-                else
+                name = "일정";
+
+                if (!schedule_name.equals(""))
                     name = schedule_name.getText().toString();
+
 
                 int hour = schedule_timepicker.getHour();
                 int minute = schedule_timepicker.getMinute();
