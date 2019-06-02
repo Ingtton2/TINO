@@ -42,7 +42,7 @@ public class SetOrderActivity extends AppCompatActivity {
         String sql;
         final TinoDB helper =new TinoDB(this);
         db = helper.getReadableDatabase();
-        sql = "Select * from tino where time>=1 and do =1 ORDER BY id DESC;";
+        sql = "Select * from tino where time>=1 and do =1 ORDER BY id ASC;";
         Cursor cursor = db.rawQuery(sql, null);
         final int count=cursor.getCount();
         try {

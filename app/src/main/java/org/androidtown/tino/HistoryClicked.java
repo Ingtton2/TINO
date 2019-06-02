@@ -16,8 +16,12 @@ public class HistoryClicked extends Activity {
         TextView name=(TextView)findViewById(R.id.s_Name);
         TextView hour=(TextView)findViewById(R.id.sHour);
         TextView min=(TextView)findViewById(R.id.sMinute);
+        String schedule=intent.getStringExtra("sName");
+        name.setText("schedule");
+        if(!schedule.equals("")){
+            name.setText(schedule);
+        }
 
-        name.setText(intent.getStringExtra("sName"));
         hour.setText(intent.getStringExtra("sHour"));
         min.setText(intent.getStringExtra("sMinute"));
     }
