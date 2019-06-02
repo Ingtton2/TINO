@@ -1,5 +1,6 @@
 package org.androidtown.tino;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScheduleFragment extends Fragment {
     TextView checkInputHour, checkInputMinute, name;
@@ -37,29 +40,30 @@ public class ScheduleFragment extends Fragment {
         SQLiteDatabase db, db2;
         String sql, sql2;
 
-        final TinoDB helper =new TinoDB(getContext());
+        CustomAdapter customAdapter = new CustomAdapter(getContext());
+        final TinoDB helper = new TinoDB(getContext());
         db = helper.getReadableDatabase();
-        sql = "Select * from tino where time>=1 and do =1 ORDER BY id DESC;";
+        sql = "Select name, time from tino where time>=1 and do =1 ORDER BY id DESC;";
 
         Cursor cursor = db.rawQuery(sql, null);
-        final int count=cursor.getCount();
+        final int count = cursor.getCount();
         try {
             if (cursor != null) {
                 for (int i = 0; i < count; i++) {
                     cursor.moveToNext();
                     String task = cursor.getString(cursor.getColumnIndex("name"));
-                    arraylist.add(task);
-                    Log.d("sls", "name: " + task );
+                    String time = cursor.getString(cursor.getColumnIndex("time"));
+
+                    customAdapter.addItem(task, time);
+                    listView.setAdapter(customAdapter);
+                    //arraylist.add(task);
+                    Log.d("sls", "name: " + task);
                 }
             }
         } finally {
             db.close();
             cursor.close();
         }
-
-        ArrayAdapter<String> Adapter;
-        Adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arraylist);
-        listView.setAdapter(Adapter);
 
         final BmDB bookmark = new BmDB(getContext());
         db2 = bookmark.getReadableDatabase();
@@ -68,7 +72,7 @@ public class ScheduleFragment extends Fragment {
         Cursor cursor2 = db2.rawQuery(sql2, null);
         final int count2 = cursor2.getCount();
         try {
-            if (cursor2!=null){
+            if (cursor2 != null) {
                 for (int i = 0; i < count2; i++) {
                     cursor2.moveToNext();
                     String d_hour = cursor2.getString(cursor2.getColumnIndex("d_hour"));
@@ -82,28 +86,53 @@ public class ScheduleFragment extends Fragment {
             cursor2.close();
         }
 
-        SQLiteDatabase db3;
-        String sql3;
-
-        final BmDB bookmark2 = new BmDB(getContext());
-        db3 = bookmark2.getReadableDatabase();
-        sql3 = "select name from bookmark;";
-
-        Cursor cursor3 = db3.rawQuery(sql3, null);
-        final int count3 = cursor3.getCount();
-        try {
-            if (cursor3!=null){
-                for (int i = 0; i < count3; i++) {
-                    cursor3.moveToNext();
-                    String Name = cursor3.getString(cursor3.getColumnIndex("name"));
-                    name.setText(Name);
-                }
-            }
-        } finally {
-            db3.close();
-            cursor3.close();
-        }
 
         return layout;
+
+
+    }
+
+    public class CustomAdapter extends BaseAdapter {
+        ArrayList<ScheduleData> listViewItemList = null;
+        LayoutInflater mInflater = null;
+
+        public CustomAdapter(Context context) {
+            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            listViewItemList = new ArrayList<ScheduleData>();
+        }
+
+        @Override
+        public int getCount() {
+            return listViewItemList.size();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView==null)
+                convertView = mInflater.inflate(R.layout.schedule_item, parent, false);
+
+            TextView textView01 = (TextView) convertView.findViewById(R.id.nameTXT);
+            TextView textView02 = (TextView) convertView.findViewById(R.id.timeTXT);
+            ScheduleData customData = listViewItemList.get(position);
+
+            textView01.setText(customData.getTxt01());
+            textView02.setText(customData.getTxt02());
+            return convertView;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return listViewItemList.get(position);
+        }
+
+        public void addItem(String txt01, String txt02) {
+            ScheduleData customData = new ScheduleData(txt01, txt02);
+            listViewItemList.add(customData);
+        }
     }
 }
