@@ -43,7 +43,7 @@ public class ScheduleFragment extends Fragment {
         CustomAdapter customAdapter = new CustomAdapter(getContext());
         final TinoDB helper = new TinoDB(getContext());
         db = helper.getReadableDatabase();
-        sql = "Select name, time from tino where time>=1 and do =1 ORDER BY id DESC;";
+        sql = "Select name, time from tino where time>=1 and do =1 ORDER BY id ASC;";
 
         Cursor cursor = db.rawQuery(sql, null);
         final int count = cursor.getCount();
@@ -67,7 +67,7 @@ public class ScheduleFragment extends Fragment {
 
         final BmDB bookmark = new BmDB(getContext());
         db2 = bookmark.getReadableDatabase();
-        sql2 = "select d_hour, d_min from bookmark;";
+        sql2 = "select name, d_hour, d_min from bookmark;";
 
         Cursor cursor2 = db2.rawQuery(sql2, null);
         final int count2 = cursor2.getCount();
@@ -75,8 +75,13 @@ public class ScheduleFragment extends Fragment {
             if (cursor2 != null) {
                 for (int i = 0; i < count2; i++) {
                     cursor2.moveToNext();
+                    String schedule=cursor2.getString(cursor2.getColumnIndex("name"));
                     String d_hour = cursor2.getString(cursor2.getColumnIndex("d_hour"));
                     String d_min = cursor2.getString(cursor2.getColumnIndex("d_min"));
+                    if(schedule.equals("")){
+                        schedule="schedule";
+                    }
+                    name.setText(schedule);
                     checkInputHour.setText(d_hour);
                     checkInputMinute.setText(d_min);
                 }

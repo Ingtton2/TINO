@@ -84,11 +84,11 @@ public class ScheduleActivity extends Activity {
                     Log.d("test", "input");
                     helper.insert(0, "씻기", "0", 0);
                     helper.insert(1, "화장하기", "0", 0);
-                    helper.insert(2, "가방챙기기", "0", 0);
-                    helper.insert(3, "머리말리기", "0", 0);
-                    helper.insert(4, "밥먹기", "0", 0);
-                    helper.insert(5, "옷고르기", "0", 0);
-                    helper.insert(6, "고데기", "0", 0);
+                    helper.insert(6, "가방챙기기", "0", 0);
+                    helper.insert(2, "머리말리기", "0", 0);
+                    helper.insert(3, "밥먹기", "0", 0);
+                    helper.insert(4, "옷고르기", "0", 0);
+                    helper.insert(5, "고데기", "0", 0);
                     helper.insert(7, "모닝똥", "0", 0);
                 }
 
